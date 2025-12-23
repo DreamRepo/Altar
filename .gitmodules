@@ -1,0 +1,9 @@
+[submodule "AltarDocker"]
+	path = AltarDocker
+	url = https://github.com/DreamRepo/AltarDocker.git
+[submodule "AltarExtractor"]
+	path = AltarExtractor
+	url = https://github.com/DreamRepo/AltarExtractor.git
+[submodule "AltarSender"]
+	path = AltarSender
+	url = https://github.com/DreamRepo/AltarSender.git
