@@ -163,6 +163,21 @@ html, body {
 .card-icon { font-size: 22px; }
 .card h3 { margin: 10px 0 6px; font-size: 18px; }
 .card p { margin: 0; color: var(--muted); }
+.card .docker-explanation { 
+  margin-top: 1rem; 
+  padding: 1rem; 
+  background: var(--panel); 
+  border-left: 3px solid var(--brand); 
+  border-radius: 6px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.card .docker-explanation strong { color: var(--text); }
+.card .docker-explanation a { 
+  color: #60a5fa; 
+  text-decoration: underline;
+  font-weight: 600;
+}
 .card-actions { margin-top: 10px; }
 
 /* Steps */
@@ -510,5 +525,132 @@ code {
   .use-case-content .benefits {
     text-align: left;
   }
+}
+
+/* App screenshot styling */
+.app-screenshot {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.app-screenshot img {
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--stroke);
+  box-shadow: var(--shadow);
+}
+
+/* README content styling */
+.readme-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem;
+  background: #ffffff !important;
+  color: #0b0c10 !important;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.readme-content h1,
+.readme-content h2,
+.readme-content h3,
+.readme-content h4 {
+  color: #0b0c10;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.readme-content h1 { font-size: 2rem; }
+.readme-content h2 { font-size: 1.5rem; }
+.readme-content h3 { font-size: 1.25rem; }
+
+.readme-content p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  color: #374151;
+}
+
+.readme-content code {
+  background: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Courier New', monospace;
+}
+
+.readme-content pre {
+  background: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1px solid #e5e7eb;
+}
+
+.readme-content pre code {
+  background: none;
+  padding: 0;
+  color: #1f2937;
+}
+
+.readme-content ul,
+.readme-content ol {
+  margin: 1rem 0 1rem 2rem;
+  color: #374151;
+}
+
+.readme-content li {
+  margin-bottom: 0.5rem;
+}
+
+.readme-content a {
+  color: #335cff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.readme-content a:hover {
+  text-decoration: underline;
+}
+
+.readme-content blockquote {
+  border-left: 4px solid #335cff;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.readme-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.readme-content th,
+.readme-content td {
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.readme-content th {
+  background: #f9fafb;
+  font-weight: 600;
+  color: #111827;
+}
+
+.readme-content td {
+  color: #374151;
+}
+
+.readme-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem 0;
 }
 

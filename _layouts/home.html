@@ -1,0 +1,127 @@
+---
+layout: default
+---
+{% assign data = site.data.index %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>{{ data.hero.title }}</h1>
+    <p class="subtitle">{{ data.hero.subtitle }}</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="{{ data.hero.primary_cta.link }}">{{ data.hero.primary_cta.text }}</a>
+      <a class="btn btn-secondary" href="{{ data.hero.secondary_cta.link }}">{{ data.hero.secondary_cta.text }}</a>
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+  </div>
+</section>
+
+<main>
+  <!-- WHO IS ALTAR FOR -->
+  <section id="who-is-it-for" class="section">
+    <h2 class="section-title">{{ data.who_is_it_for.title }}</h2>
+    <div class="use-case">
+      <div class="use-case-icon" aria-hidden="true"><i class="{{ data.who_is_it_for.icon }}"></i></div>
+      <div class="use-case-content">
+        <p class="lead">{{ data.who_is_it_for.lead }}</p>
+        <ul class="benefits">
+          {% for benefit in data.who_is_it_for.benefits %}
+          <li>{{ benefit }}</li>
+          {% endfor %}
+        </ul>
+        <p>{{ data.who_is_it_for.closing }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU CAN DO -->
+  <section id="capabilities" class="section alt">
+    <h2 class="section-title">{{ data.capabilities.title }}</h2>
+    <div class="bubbles">
+      {% for bubble in data.capabilities.bubbles %}
+      <a class="bubble" href="{{ bubble.link | relative_url }}" aria-label="{{ bubble.label }}">
+        <div class="bubble-icon"><i class="{{ bubble.icon }}" aria-hidden="true"></i></div>
+        <div class="bubble-label">{{ bubble.label }}</div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- TOOLS OVERVIEW -->
+  <section id="projects" class="section">
+    <h2 class="section-title">{{ data.tools.title }}</h2>
+    <div class="cards">
+      {% for tool in data.tools.cards %}
+      <article class="card">
+        <div class="card-icon" aria-hidden="true"><i class="{{ tool.icon }}"></i></div>
+        <h3>{{ tool.title }}</h3>
+        <p>{{ tool.description }}</p>
+        <div class="card-actions">
+          <a class="btn btn-link" href="{{ tool.link | relative_url }}">{{ tool.linkText }}</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- REQUIREMENT TO RUN ALTAR -->
+  <section class="section">
+    <h2 class="section-title">{{ data.requirement.title }}</h2>
+    <article class="card">
+      <div class="card-icon" aria-hidden="true"><i class="{{ data.requirement.icon }}"></i></div>
+      <h3>{{ data.requirement.card_title }}</h3>
+      <p>{{ data.requirement.description }}</p>
+      {% if data.requirement.docker_explanation %}
+      <p class="docker-explanation">{{ data.requirement.docker_explanation }}</p>
+      {% endif %}
+      <div class="card-actions">
+        <a class="btn btn-link" href="{{ data.requirement.link | relative_url }}">{{ data.requirement.linkText }}</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- QUICK START -->
+  <section id="quickstart" class="section alt">
+    <h2 class="section-title">{{ data.quick_start.title }}</h2>
+    <div class="steps">
+      {% for step in data.quick_start.steps %}
+      <div class="step">
+        <div class="step-num">{{ forloop.index }}</div>
+        <div class="step-body">
+          <h4>{{ step.title }}</h4>
+          <p>{{ step.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- WHY THIS REPO -->
+  <section class="section">
+    <h2 class="section-title">{{ data.why_this_repo.title }}</h2>
+    <p class="lead">{{ data.why_this_repo.lead }}</p>
+    <ul class="benefits">
+      {% for benefit in data.why_this_repo.benefits %}
+      <li>{{ benefit }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="foot-left">
+      <span>© <span id="year"></span> Altar</span>
+    </div>
+    <div class="foot-right">
+      <a href="https://github.com/DreamRepo/Altar">Source</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="https://github.com/DreamRepo/Altar/blob/main/LICENSE">License (GPL‑3.0)</a>
+    </div>
+  </div>
+</footer>

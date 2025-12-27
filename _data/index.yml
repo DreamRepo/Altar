@@ -1,0 +1,96 @@
+meta:
+  title: "Altar — Experiment Data Management"
+  description: "End‑to‑end tools to manage experiment data with MongoDB (Sacred), MinIO, Omniboard, and desktop utilities."
+
+hero:
+  title: "Manage experiment data, end‑to‑end"
+  subtitle: "A set of small, pragmatic tools for <strong>MongoDB (Sacred)</strong> metadata, <strong>MinIO</strong> artifacts, <strong>Omniboard</strong> visualization, and handy desktop utilities."
+  primary_cta:
+    text: "Explore tools"
+    link: "#projects"
+  secondary_cta:
+    text: "Quick start"
+    link: "#quickstart"
+
+who_is_it_for:
+  title: "Who is Altar for?"
+  icon: "fa-solid fa-folder-tree"
+  lead: "Altar is designed for <strong>researchers and engineers</strong> who acquire experimental results — containing metadata, data tables, time series, images, videos, or any files — organized in folders, and want to:"
+  benefits:
+    - "<strong>Centralize</strong> experiment data in a structured database"
+    - "<strong>Filter and sort</strong> results by configuration parameters"
+    - "<strong>Access and visualize</strong> data through a user-friendly interface"
+    - "<strong>Produce datasets</strong> for further analysis, exchange with collaborators and publication"
+  closing: "Whether you're running scientific experiments, ML training runs, or lab measurements — if your data is stored in folders and you need a better way to explore it, Altar can help."
+
+capabilities:
+  title: "What you can do"
+  bubbles:
+    - icon: "fa-solid fa-cloud-arrow-up"
+      label: "Upload experimental data"
+      link: "sender"
+    - icon: "fa-solid fa-database"
+      label: "Store large raw data"
+      link: "sender"
+    - icon: "fa-solid fa-table"
+      label: "Store metadata and results"
+      link: "sender"
+    - icon: "fa-solid fa-chart-line"
+      label: "Visualize experimental data"
+      link: "viewer"
+    - icon: "fa-solid fa-filter"
+      label: "Filter, Visualize and download datasets"
+      link: "extractor"
+
+tools:
+  title: "Tools overview"
+  cards:
+    - icon: "fa-solid fa-paper-plane"
+      title: "AltarSender"
+      description: "Application to send (meta)data stored in local folders to a database where they can be organized and visualized."
+      link: "sender"
+      linkText: "Learn more →"
+    - icon: "fa-solid fa-tv"
+      title: "AltarViewer"
+      description: "Desktop app to connect to MongoDB, select a database, and launch Omniboard in Docker for experiment visualization."
+      link: "viewer"
+      linkText: "Learn more →"
+    - icon: "fa-solid fa-magnifying-glass-chart"
+      title: "AltarExtractor"
+      description: "Application to explore the database, filter experiments, visualise data and export datasets."
+      link: "extractor"
+      linkText: "Learn more →"
+
+requirement:
+  title: "Requirement to run Altar"
+  icon: "fa-solid fa-cubes"
+  card_title: "AltarDocker"
+  description: "Docker Compose stack for <strong>MongoDB</strong>, <strong>MinIO</strong>, <strong>Omniboard</strong>, and <strong>AltarExtractor</strong> for local/dev."
+  docker_explanation: "<br><strong>What is Docker?</strong> Docker is like a virtual container that packages all the software Altar needs to run. Think of it as a complete workspace that works the same way on any computer — whether you're on Windows, Mac, or Linux.<br><br><strong>Why it helps:</strong> Instead of manually installing and configuring multiple programs (databases, servers, etc.), Docker does it all automatically in one command. This means less technical setup for you, and more time for your research.<br><br><a href=\"https://docs.docker.com/get-docker/\" target=\"_blank\">Install Docker Desktop here</a> (free for personal use)."
+  link: "docker"
+  linkText: "Learn more →"
+
+quick_start:
+  title: "Quick start"
+  steps:
+    - title: "Clone the repository"
+      description: "Either download the ZIP or use <code>git clone https://github.com/DreamRepo/Altar.git</code> then <code>git submodule update --init --recursive</code>"
+    - title: "Run the local stack"
+      description: "Go to <a href=\"docker\">AltarDocker</a>, edit <code>.env</code>, then <code>docker compose up -d</code>. Omniboard connects to your MongoDB."
+    - title: "Add the Extractor (optional)"
+      description: "Run <code>docker compose --profile extractor up -d</code> to add <a href=\"extractor\">AltarExtractor</a>. Open <a href=\"http://localhost:8050\">localhost:8050</a> and connect to MongoDB."
+    - title: "Send experiments"
+      description: "Use <a href=\"sender\">AltarSender</a> to map folders and push runs to Sacred and files to MinIO."
+    - title: "Visualize database content"
+      description: "Browse and filter experiments with Omniboard."
+    - title: "Visualise data and export datasets" 
+      description: "Use <a href=\"extractor\">AltarExtractor</a> to interact with data using Pygwalker and download datasets as CSV."
+
+why_this_repo:
+  title: "Why this repo?"
+  lead: "Keep experiment data organized, reproducible, and explorable with a small set of focused tools. Use only what you need; each subproject stands on its own."
+  benefits:
+    - "Pragmatic: minimal, task‑oriented tools"
+    - "Portable: local dev stack in Docker"
+    - "Observable: Omniboard and AltarExtractor for runs and metrics"
+    - "Adaptable: desktop utilities and web apps"

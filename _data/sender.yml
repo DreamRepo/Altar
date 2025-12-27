@@ -1,0 +1,100 @@
+meta:
+  title: "AltarSender — Experiment Sender to Sacred"
+  description: "GUI to map experiment folders and send runs to Sacred (MongoDB) and artifacts to MinIO."
+
+hero:
+  icon: "fa-solid fa-paper-plane"
+  title: "AltarSender"
+  subtitle: "A <strong>desktop GUI</strong> to map experiment folders and send runs to <strong>Sacred (MongoDB)</strong> and artifacts to <strong>MinIO</strong> or local storage."
+  primary_cta:
+    text: "Features"
+    link: "#features"
+  secondary_cta:
+    text: "View source"
+    link: "https://github.com/DreamRepo/AltarSender"
+
+features:
+  - icon: "fa-solid fa-folder-tree"
+    title: "Map experiment folders"
+    description: "Select folders and map files to Sacred data types: config, results, metrics, artifacts."
+  - icon: "fa-solid fa-database"
+    title: "Send to Sacred"
+    description: "Push experiment metadata, configs, results, and metrics to MongoDB Sacred."
+  - icon: "fa-solid fa-cloud-arrow-up"
+    title: "Upload to MinIO"
+    description: "Send large raw data files to S3-compatible MinIO storage."
+  - icon: "fa-solid fa-copy"
+    title: "Batch send"
+    description: "Send multiple experiments with the same folder structure in one go."
+  - icon: "fa-solid fa-file-code"
+    title: "Multiple formats"
+    description: "Supports JSON, CSV, and Excel files for configs, results, and metrics."
+  - icon: "fa-solid fa-hard-drive"
+    title: "Local storage"
+    description: "Optionally save raw data to local or network paths instead of MinIO."
+
+quick_start:
+  - title: "Install dependencies"
+    code: |
+      cd AltarSender
+      python -m venv .venv
+      .venv\Scripts\activate  # Windows
+      # source .venv/bin/activate  # Linux/macOS
+      pip install -r requirements.txt
+  - title: "Run the app"
+    code: "python app.py"
+    content: "The GUI window will open."
+  - title: "Configure connections"
+    content: "Enter your MongoDB credentials. Optionally configure MinIO for large file storage."
+  - title: "Select and send"
+    content: "Choose an experiment folder, map files to data types, and click <strong>Send experiment</strong>."
+
+file_categories:
+  - label: "Config"
+    value: "Experiment configuration (JSON, CSV, Excel)"
+  - label: "Results"
+    value: "Experiment results and outputs (JSON, CSV, Excel)"
+  - label: "Metrics"
+    value: "Time series data for plotting (CSV, Excel)"
+  - label: "Artifacts"
+    value: "Small files stored in MongoDB (&lt; 50MB)"
+  - label: "Raw data"
+    value: "Large files sent to MinIO or local storage"
+
+batch_sending:
+  description: "Send multiple experiments at once when they share the same folder structure. Configure one experiment, enable batch mode, and all sibling folders will be processed."
+  example: |
+    Parent folder/
+    ├── 2023-04-17_Experiment1/
+    │   ├── config.json
+    │   ├── results.csv
+    │   └── raw_data/
+    │       └── video.tiff
+    │
+    └── 2023-04-17_Experiment2/
+        ├── config.json
+        ├── results.csv
+        └── raw_data/
+            └── video.tiff
+
+viewing_results:
+  - label: "Config"
+    value: "Omniboard → <strong>Config</strong> tab"
+  - label: "Results"
+    value: "Omniboard → <strong>Run Info</strong> → result"
+  - label: "Metrics"
+    value: "Omniboard → <strong>Metrics plot</strong>"
+  - label: "Artifacts"
+    value: "Omniboard → <strong>Artifacts</strong>"
+  - label: "Raw data"
+    value: "Omniboard → <strong>Run Info</strong> → dataFiles"
+
+related_tools:
+  - icon: "fa-solid fa-cubes"
+    title: "AltarDocker"
+    description: "Deploy MongoDB, MinIO, Omniboard, and AltarExtractor with Docker Compose."
+    link: "docker"
+  - icon: "fa-solid fa-magnifying-glass-chart"
+    title: "AltarExtractor"
+    description: "Browse and filter Sacred experiments with a modern web UI."
+    link: "extractor"

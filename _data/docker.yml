@@ -1,0 +1,65 @@
+meta:
+  title: "AltarDocker — Local Infrastructure Stack"
+  description: "Deploy your experiment data infrastructure locally by installing the basic bricks with Docker Compose. MongoDB stores small files, metadata and results and MinIO handles large raw data. Omniboard provides a web interface to visualize experiments, and AltarExtractor lets you filter and export datasets."
+
+hero:
+  icon: "fa-solid fa-cubes"
+  title: "AltarDocker"
+  subtitle: "Deploy your experiment data infrastructure locally by installing the basic bricks with Docker Compose. MongoDB stores small files, metadata and results and MinIO handles large raw data. Omniboard provides a web interface to visualize experiments, and AltarExtractor lets you filter and export datasets."
+  primary_cta:
+    text: "Quick start"
+    link: "#quick-start"
+  secondary_cta:
+    text: "Install"
+    link: "#full-documentation"
+  tertiary_cta:
+    text: "Source"
+    link: "https://github.com/DreamRepo/AltarDocker"
+
+features:
+  - icon: "fa-solid fa-database"
+    title: "MongoDB"
+    description: "Store experiment metadata, configs, results, and metrics using Sacred's standard schema."
+  - icon: "fa-solid fa-hard-drive"
+    title: "MinIO"
+    description: "S3-compatible object storage for large files like videos, images, and raw data."
+  - icon: "fa-solid fa-chart-line"
+    title: "Omniboard"
+    description: "Web dashboard to visualize Sacred experiments, view metrics, and download artifacts."
+  - icon: "fa-solid fa-magnifying-glass-chart"
+    title: "AltarExtractor"
+    description: "Browse, filter, and export experiments with advanced config filtering and CSV export."
+
+quick_start:
+  - title: "Start all services"
+    code: |
+      docker compose --profile minio --profile extractor up -d
+    content: "Launch MongoDB, MinIO, Omniboard, and AltarExtractor in detached mode. Will work only if you have previously followed the installation steps <a href=\"#full-documentation\">here</a>."
+  - title: "Access the services"
+    content: "Open the URLs below to access each service. Default credentials are in the README."
+
+default_urls:
+  - label: "MongoDB"
+    value: "<code>mongodb://localhost:27077</code>"
+  - label: "Omniboard"
+    value: "<code>http://localhost:9030</code>"
+  - label: "AltarExtractor"
+    value: "<code>http://localhost:8050</code>"
+  - label: "MinIO Console"
+    value: "<code>http://localhost:9001</code>"
+  - label: "MinIO S3 API"
+    value: "<code>http://localhost:9000</code>"
+
+related_tools:
+  - icon: "fa-solid fa-magnifying-glass-chart"
+    title: "AltarExtractor"
+    description: "Browse and filter Sacred experiments with a modern web UI."
+    link: "extractor"
+  - icon: "fa-solid fa-paper-plane"
+    title: "AltarSender"
+    description: "Send experiments to Sacred and artifacts to MinIO."
+    link: "sender"
+  - icon: "fa-solid fa-tv"
+    title: "AltarViewer"
+    description: "Desktop app to connect to your databases and open the interface to browse and visualize experiments."
+    link: "viewer"

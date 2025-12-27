@@ -7,6 +7,10 @@ A monorepo of small tools and deployment configs to manage experiment data end�
 - AltarExtractor for browsing and filtering Sacred experiments
 - Desktop utility for sending experiments to Sacred/MinIO
 
+**📚 Documentation Site**: [https://dreamrepo.github.io/Altar/](https://dreamrepo.github.io/Altar/)
+
+**✏️ Editing Documentation**: See [DOCS.md](DOCS.md) for detailed instructions on editing the website content using Jekyll and YAML.
+
 ### Repository structure
 
 ```
@@ -14,8 +18,11 @@ Altar/
 ├─ AltarDocker/      # Docker Compose: MongoDB, MinIO, Omniboard, Extractor + docs
 ├─ AltarExtractor/   # Dash app to browse, filter, and export Sacred experiments
 ├─ AltarSender/      # GUI to send experiments to Sacred (+ MinIO artifacts/raw data)
-├─ assets/           # Website assets
+├─ _data/            # Website content in YAML format (easy to edit!)
+├─ _layouts/         # Jekyll page templates
+├─ assets/           # Website assets (CSS, JS)
 ├─ index.html        # Landing page
+├─ DOCS.md           # Documentation editing guide
 └─ README.md
 ```
 

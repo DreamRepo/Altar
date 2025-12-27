@@ -1,0 +1,67 @@
+meta:
+  title: "AltarExtractor — Sacred Experiments Browser"
+  description: "Dash web app to browse Sacred experiments, filter by config, view metrics, and export as CSV or explore in Pygwalker."
+
+hero:
+  icon: "fa-solid fa-magnifying-glass-chart"
+  title: "AltarExtractor"
+  subtitle: "A <strong>Dash web app</strong> to browse Sacred experiments, filter by configuration, view metrics, and export datasets as <strong>CSV</strong> or explore in <strong>Pygwalker</strong>."
+  primary_cta:
+    text: "Features"
+    link: "#features"
+  secondary_cta:
+    text: "View source"
+    link: "https://github.com/DreamRepo/AltarExtractor"
+
+features:
+  - icon: "fa-solid fa-plug"
+    title: "Connect to any MongoDB"
+    description: "Enter credentials or a MongoDB URI. Supports authentication and multiple databases."
+  - icon: "fa-solid fa-filter"
+    title: "Filter by config"
+    description: "Select config keys, filter by boolean, number ranges, or string values."
+  - icon: "fa-solid fa-chart-area"
+    title: "View metrics"
+    description: "Select metrics to see per-step data. Toggle between rows and columns layout."
+  - icon: "fa-solid fa-file-csv"
+    title: "Export as CSV"
+    description: "Download filtered experiments or metrics data as CSV files."
+  - icon: "fa-solid fa-wand-magic-sparkles"
+    title: "Pygwalker integration"
+    description: "Open datasets in Pygwalker for interactive data exploration and visualization."
+  - icon: "fa-solid fa-floppy-disk"
+    title: "Save credentials"
+    description: "Store connection settings in browser localStorage for quick reconnection."
+
+quick_start:
+  - title: "Option A: With AltarDocker (recommended)"
+    code: |
+      cd AltarDocker
+      docker compose --profile extractor up -d
+    content: "Open <code>http://localhost:8050</code> and connect with host <code>mongo</code>."
+  - title: "Option B: Standalone"
+    code: |
+      cd AltarExtractor
+      python -m venv .venv
+      .venv\Scripts\activate  # Windows
+      pip install -r requirements.txt
+      python app.py
+    content: "Open <code>http://localhost:8050</code> in your browser."
+  - title: "Connect to MongoDB"
+    content: "Enter your MongoDB credentials or paste a full URI. Click <strong>Connect</strong> to start browsing experiments."
+
+environment_vars:
+  - label: "PORT"
+    value: "Port the app listens on (default: <code>8050</code>)"
+  - label: "SACRED_DB_NAME"
+    value: "Default database name (default: <code>sacred</code>)"
+
+related_tools:
+  - icon: "fa-solid fa-cubes"
+    title: "AltarDocker"
+    description: "Deploy MongoDB, MinIO, Omniboard, and AltarExtractor with Docker Compose."
+    link: "docker"
+  - icon: "fa-solid fa-paper-plane"
+    title: "AltarSender"
+    description: "Send experiments to Sacred and artifacts to MinIO."
+    link: "sender"

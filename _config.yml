@@ -1,0 +1,35 @@
+title: Altar
+description: Sacred experiment database tools
+url: "https://dreamrepo.github.io"
+baseurl: "/Altar"
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+# Theme (if using one)
+# theme: jekyll-theme-minimal
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name
+
+# Plugins (none required for this site)
+plugins: []
+
+# Exclude from build
+exclude:
+  - README.md
+  - .git
+  - .gitignore
+  - AltarDocker/
+  - AltarExtractor/
+  - AltarSender/
+  - AltarViewer/
+  - data/
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - node_modules/
