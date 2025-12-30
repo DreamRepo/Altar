@@ -1,11 +1,11 @@
 ## Altar — Experiment Data Management
 
 A monorepo of small tools and deployment configs to manage experiment data end‑to‑end:
-- MongoDB (Sacred) for experiment metadata
-- MinIO (S3-compatible) for raw/heavy files
-- Omniboard for visualization
-- AltarExtractor for browsing and filtering Sacred experiments
-- Desktop utility for sending experiments to Sacred/MinIO
+- Send (meta)data to a database (MongoDB - noSQL) following a flexible data model (Sacred model)
+- Store raw/heavy files (MinIO - s3 compatible)
+- Visualization of data online (AltarViewer)
+- Browsing and filtering Sacred experiments, extract datasets (AltarExtractor)
+- Sending experiments to MongoDB/MinIO (AltarSender)
 
 **📚 Documentation Site**: [https://dreamrepo.github.io/Altar/](https://dreamrepo.github.io/Altar/)
 
