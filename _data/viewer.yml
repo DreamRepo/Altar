@@ -66,6 +66,9 @@ quick_start:
       docker compose -f path/to/your/folder/docker-compose_default.yml up -d
     content: "Use the AltarDocker stack to bring up MongoDB and MinIO with Docker Compose, then connect AltarViewer to that MongoDB instance."
 
+  - title: "Open the web app"
+    content: "Once AltarViewer is running, open <code>http://localhost:8060</code> in your browser to access the web interface."
+
   - title: "Connect to MongoDB"
     content: "Choose between connecting by port (default: 27017) or by full MongoDB URL, then click <strong>Connect</strong> to list databases."
   - title: "Launch Omniboard"
