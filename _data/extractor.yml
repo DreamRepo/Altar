@@ -33,32 +33,15 @@ features:
     title: "Save credentials"
     description: "Store connection settings in browser localStorage for quick reconnection."
 
-quick_start:
-  - title: "Option A: With AltarDocker (recommended)"
-    code: |
-      cd AltarDocker
-      docker compose --profile extractor up -d
-    content: "Open <code>http://localhost:8050</code> and connect with host <code>mongo</code>."
-  - title: "Option B: Standalone"
-    code: |
-      cd AltarExtractor
-      python -m venv .venv
-      .venv\Scripts\activate  # Windows
-      pip install -r requirements.txt
-      python app.py
-    content: "Open <code>http://localhost:8050</code> in your browser."
-  - title: "Connect to MongoDB"
-    content: "Enter your MongoDB credentials or paste a full URI. Click <strong>Connect</strong> to start browsing experiments."
-
 requirements:
   title: "What you need"
   items:
-    altardocker:
-      title: "AltarDocker Stack"
-      icon: "fa-solid fa-cubes"
-      description: "Running MongoDB instance with Sacred experiments. Best used with the full AltarDocker stack."
+    mongodb:
+      title: "MongoDB with Sacred Data"
+      icon: "fa-solid fa-database"
+      description: "A MongoDB instance containing Sacred experiments. Can be deployed using AltarDocker or any other MongoDB setup."
       link: "docker"
-      link_text: "Go to AltarDocker"
+      link_text: "Deploy with AltarDocker"
     
     incense:
       title: "Incense (for scripts)"
@@ -73,6 +56,23 @@ requirements:
       description: "AltarExtractor uses PyGWalker for interactive visualization. Knowing its features enhances your data exploration."
       link: "https://docs.kanaries.net/pygwalker"
       link_text: "Read Docs"
+
+quick_start:
+  - title: "Option A: Standalone (recommended)"
+    code: |
+      cd AltarExtractor
+      python -m venv .venv
+      .venv\Scripts\activate  # Windows
+      pip install -r requirements.txt
+      python app.py
+    content: "Open <code>http://localhost:8050</code> in your browser."
+  - title: "Option B: Using Docker"
+    code: |
+      cd AltarExtractor
+      docker-compose up -d --build
+    content: "Open <code>http://localhost:8050</code>. Connect with your MongoDB instance."
+  - title: "Connect to MongoDB"
+    content: "Enter your MongoDB credentials or paste a full URI. Click <strong>Connect</strong> to start browsing experiments."
 
 environment_vars:
   - label: "PORT"

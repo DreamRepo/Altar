@@ -33,22 +33,6 @@ features:
     title: "Local storage"
     description: "Optionally save raw data to local or network paths instead of MinIO."
 
-quick_start:
-  - title: "Install dependencies"
-    code: |
-      cd AltarSender
-      python -m venv .venv
-      .venv\Scripts\activate  # Windows
-      # source .venv/bin/activate  # Linux/macOS
-      pip install -r requirements.txt
-  - title: "Run the app"
-    code: "python app.py"
-    content: "The GUI window will open."
-  - title: "Configure connections"
-    content: "Enter your MongoDB credentials. Optionally configure MinIO for large file storage."
-  - title: "Select and send"
-    content: "Choose an experiment folder, map files to data types, and click <strong>Send experiment</strong>."
-
 requirements:
   title: "What you need"
   items:
@@ -72,6 +56,22 @@ requirements:
       description: "Use AltarViewer to visualize your uploaded experiments in Omniboard."
       link: "viewer"
       link_text: "Go to AltarViewer"
+
+quick_start:
+  - title: "Install dependencies"
+    code: |
+      cd AltarSender
+      python -m venv .venv
+      .venv\Scripts\activate  # Windows
+      # source .venv/bin/activate  # Linux/macOS
+      pip install -r requirements.txt
+  - title: "Run the app"
+    code: "python app.py"
+    content: "The GUI window will open."
+  - title: "Configure connections"
+    content: "Enter your MongoDB credentials. Optionally configure MinIO for large file storage."
+  - title: "Select and send"
+    content: "Choose an experiment folder, map files to data types, and click <strong>Send experiment</strong>."
 
 file_categories:
   - label: "Config"

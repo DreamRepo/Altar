@@ -1,11 +1,11 @@
 meta:
   title: "AltarDocker — Local Infrastructure Stack"
-  description: "Deploy your experiment data infrastructure locally by installing the basic bricks with Docker Compose. MongoDB stores small files, metadata and results and MinIO handles large raw data. Omniboard provides a web interface to visualize experiments, and AltarExtractor lets you filter and export datasets."
+  description: "Deploy your experiment data infrastructure locally with Docker Compose. MongoDB stores metadata and results, MinIO handles large raw data, and Omniboard provides a web interface to visualize experiments."
 
 hero:
   icon: "fa-solid fa-cubes"
   title: "AltarDocker"
-  subtitle: "Deploy your experiment data infrastructure locally by installing the basic bricks with Docker Compose. MongoDB stores small files, metadata and results and MinIO handles large raw data. Omniboard provides a web interface to visualize experiments, and AltarExtractor lets you filter and export datasets."
+  subtitle: "Deploy your experiment data infrastructure locally with Docker Compose. MongoDB stores metadata and results, MinIO handles large raw data, and Omniboard provides a web interface to visualize experiments."
   primary_cta:
     text: "Quick start"
     link: "#quick-start"
@@ -26,17 +26,19 @@ features:
   - icon: "fa-solid fa-chart-line"
     title: "Omniboard"
     description: "Web dashboard to visualize Sacred experiments, view metrics, and download artifacts."
-  - icon: "fa-solid fa-magnifying-glass-chart"
-    title: "AltarExtractor"
-    description: "Browse, filter, and export experiments with advanced config filtering and CSV export."
 
 quick_start:
+  - title: "Prepare the environment variables"
+    code: |
+      cp .env.example .env
+      # Edit .env to customize ports, passwords, and data paths
+    content: "Copy the example environment file and customize it with your preferred settings. Update MongoDB database name, MinIO credentials, host ports, and volume paths."
   - title: "Start all services"
     code: |
-      docker compose --profile minio --profile extractor up -d
-    content: "Launch MongoDB, MinIO, Omniboard, and AltarExtractor in detached mode. Will work only if you have previously followed the installation steps <a href=\"#full-documentation\">here</a>."
+      docker compose up -d
+    content: "Launch MongoDB, MinIO, and Omniboard in detached mode. All services will start with the configuration from your .env file."
   - title: "Access the services"
-    content: "Open the URLs below to access each service. Default credentials are in the README."
+    content: "Open the URLs below to access each service. Default credentials are in the .env file."
 
 default_urls:
   - label: "MongoDB"
