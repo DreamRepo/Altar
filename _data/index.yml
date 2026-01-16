@@ -360,6 +360,22 @@ requirement:
   link: "docker"
   linkText: "Learn more →"
 
+quick_start_noncoder:
+  title: "Quick start for non-coders"
+  steps:
+    - title: "Install Docker Desktop"
+      description: "Download and install <a href=\"https://docs.docker.com/get-docker/\" target=\"_blank\">Docker Desktop</a> (free for personal use). Open it and wait until it shows 'Engine running'."
+    - title: "Download and set up MongoDB"
+      description: "Follow the <a href=\"https://www.mongodb.com/try/download/community\" target=\"_blank\">MongoDB community</a> instructions to download MongoDB and launch it. By default, it runs on port 27017. Check MongoDB content with <a href=\"https://www.mongodb.com/products/tools/compass\" target=\"_blank\">MongoDB Compass app</a>."
+    - title: "Send your experiments"
+      description: "Download the <a href=\"https://github.com/DreamRepo/AltarSender/releases\" target=\"_blank\">latest AltarSender release</a> and run it to upload your experiment folders to the database with a simple point-and-click interface."
+    - title: "View your data"
+      description: "Download the <a href=\"https://github.com/DreamRepo/AltarViewer/releases\" target=\"_blank\">latest AltarViewer release</a> and run it to browse your experiments in a web dashboard — run the app, enter the port and click Connect."
+    - title: "Explore and export data (optional)"
+      description: "Follow the <a href=\"extractor\">AltarExtractor guide</a> to run it with Docker. Open <a href=\"http://localhost:8050\">localhost:8050</a> to filter experiments, visualize data, and export as CSV."
+
+
+
 quick_start:
   title: "Quick start for developers"
   steps:
@@ -375,19 +391,3 @@ quick_start:
       description: "Browse and filter experiments with Omniboard using <a href=\"viewer\">AltarViewer</a> "
     - title: "Visualise data and export datasets"
       description: "Use <a href=\"extractor\">AltarExtractor</a> to interact with data using Pygwalker and download datasets as CSV."
-
-quick_start_noncoder:
-  title: "Quick start for non-coders"
-  steps:
-    - title: "Install Docker Desktop"
-      description: "Download and install <a href=\"https://docs.docker.com/get-docker/\" target=\"_blank\">Docker Desktop</a> (free for personal use). Open it and wait until it shows 'Engine running'."
-    - title: "Download and set up Altar"
-      description: "Follow the <a href=\"https://github.com/DreamRepo/AltarDocker/blob/main/QUICKSTART-GUI.md\" target=\"_blank\">quickstart guide</a> to download Altar and launch MongoDB and MinIO using Docker Desktop's interface — no command line needed!"
-    - title: "Send your experiments"
-      description: "Download the <a href=\"https://github.com/DreamRepo/AltarSender/releases\" target=\"_blank\">latest AltarSender release</a> and run it to upload your experiment folders to the database with a simple point-and-click interface."
-    - title: "View your data"
-      description: "Download the <a href=\"https://github.com/DreamRepo/AltarViewer/releases\" target=\"_blank\">latest AltarViewer release</a> and run it to browse your experiments in a web dashboard — run the app, enter the port and click Connect."
-    - title: "Explore and export data (optional)"
-      description: "Follow the <a href=\"extractor\">AltarExtractor guide</a> to run it with Docker. Open <a href=\"http://localhost:8050\">localhost:8050</a> to filter experiments, visualize data, and export as CSV."
-
-
