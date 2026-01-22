@@ -82,9 +82,15 @@ class ExperimentSection(ctk.CTkFrame):
         self.config_card.grid(row=2, column=0, columnspan=3, sticky="ew", padx=12, pady=6)
         self.config_card.grid_columnconfigure(1, weight=1)
         
-        ctk.CTkLabel(self.config_card, text="Config", font=("Segoe UI", 14, "bold")).grid(
-            row=0, column=0, columnspan=3, sticky="w", padx=10, pady=(8, 6)
-        )
+        config_title_frame = ctk.CTkFrame(self.config_card, fg_color="transparent")
+        config_title_frame.grid(row=0, column=0, columnspan=3, sticky="w", padx=10, pady=(8, 6))
+        ctk.CTkLabel(config_title_frame, text="Config", font=("Segoe UI", 14, "bold")).pack(side="left")
+        ctk.CTkButton(
+            config_title_frame, text="ℹ", width=20, height=20,
+            fg_color="gray", hover_color="#5a5a5a",
+            font=("Segoe UI", 11),
+            command=lambda: self._show_info_tooltip("config")
+        ).pack(side="left", padx=(6, 0))
         
         # Radio buttons for source selection
         self.config_source_var = ctk.StringVar(value="folder")
@@ -194,19 +200,61 @@ class ExperimentSection(ctk.CTkFrame):
             ("artifacts", "Artifacts"),
         ]
         
-        # Info tooltips for raw_data and artifacts
+        # Info tooltips for selectors
         self._info_tooltips = {
-            "raw_data": "Files sent to MinIO or a local server.\nUse for large files (> 24 MB).",
-            "artifacts": "Files stored directly in MongoDB.\nUse for smaller files like images (< 24 MB).",
+            "config": (
+                "📋 Experiment Configuration & Metadata\n\n"
+                "Stores experiment parameters and settings.\n\n"
+                "Accepted formats:\n"
+                "  • JSON (.json) - nested or flat structure\n"
+                "  • YAML (.yaml, .yml) - nested or flat\n"
+                "  • CSV (.csv) - key-value pairs\n"
+                "  • Excel (.xlsx, .xlsm) - key-value pairs\n\n"
+                "Options:\n"
+                "  • Flatten: converts nested keys to flat (a.b → a_b)\n"
+                "  • Parse from folder: extract values from folder name"
+            ),
+            "metrics": (
+                "📈 Metrics & Time Series Data\n\n"
+                "Stores series of values logged during experiment.\n"
+                "Values are logged as scalars in Sacred.\n\n"
+                "Accepted formats:\n"
+                "  • CSV (.csv) - columns = metrics, rows = values\n"
+                "  • Excel (.xlsx, .xlsm) - same structure\n\n"
+                "Options:\n"
+                "  • Column header: first row contains column names\n"
+                "  • X-axis column: use a column as step/time axis"
+            ),
+            "results": (
+                "🏆 Experimental Results\n\n"
+                "Stores final experiment outcomes and scores.\n"
+                "These values appear in Sacred's result field.\n\n"
+                "Accepted formats:\n"
+                "  • JSON (.json) - key-value pairs\n"
+                "  • CSV (.csv) - two columns (key, value)\n"
+                "  • Excel (.xlsx, .xlsm) - two columns (key, value)"
+            ),
+            "raw_data": (
+                "💾 Raw Data Files\n\n"
+                "Large files sent to MinIO or saved locally.\n"
+                "Use for files > 24 MB (MongoDB limit).\n\n"
+                "Examples: datasets, model weights, logs..."
+            ),
+            "artifacts": (
+                "📎 Artifacts\n\n"
+                "Small files stored directly in MongoDB.\n"
+                "Use for files < 24 MB.\n\n"
+                "Examples: images, plots, small CSVs..."
+            ),
         }
         
         # Start from row 3 for the other selectors (config is at row 2)
         for idx, (key, label) in enumerate(self._keys[1:], start=3):  # Skip config
-            # Create label frame for items that need info buttons
+            # Create label frame with info button for all selectors that have tooltips
+            label_frame = ctk.CTkFrame(self, fg_color="transparent")
+            label_frame.grid(row=idx, column=0, sticky="w", padx=12)
+            ctk.CTkLabel(label_frame, text=label).pack(side="left")
             if key in self._info_tooltips:
-                label_frame = ctk.CTkFrame(self, fg_color="transparent")
-                label_frame.grid(row=idx, column=0, sticky="w", padx=12)
-                ctk.CTkLabel(label_frame, text=label).pack(side="left")
                 info_btn = ctk.CTkButton(
                     label_frame, text="ℹ", width=20, height=20, 
                     fg_color="gray", hover_color="#5a5a5a",
@@ -214,8 +262,6 @@ class ExperimentSection(ctk.CTkFrame):
                     command=lambda k=key: self._show_info_tooltip(k)
                 )
                 info_btn.pack(side="left", padx=(4, 0))
-            else:
-                ctk.CTkLabel(self, text=label).grid(row=idx, column=0, sticky="w", padx=12)
             
             initial_values = ["None"]
             file_menu = ctk.CTkOptionMenu(
@@ -605,29 +651,38 @@ class ExperimentSection(ctk.CTkFrame):
         if not info_text:
             return
         
-        # Create a small popup window
+        # Create popup window - size based on content
         popup = ctk.CTkToplevel(self)
         popup.title("Info")
-        popup.geometry("320x100")
         popup.transient(self)
         popup.grab_set()
-        
-        # Center on parent
-        popup.update_idletasks()
-        x = self.winfo_rootx() + 100
-        y = self.winfo_rooty() + 100
-        popup.geometry(f"+{x}+{y}")
         
         popup.grid_columnconfigure(0, weight=1)
         popup.grid_rowconfigure(0, weight=1)
         
-        # Message
-        msg_label = ctk.CTkLabel(popup, text=info_text, wraplength=280, justify="left")
-        msg_label.grid(row=0, column=0, padx=16, pady=(16, 8), sticky="nsew")
+        # Message in a frame with padding
+        msg_frame = ctk.CTkFrame(popup, corner_radius=8)
+        msg_frame.grid(row=0, column=0, padx=16, pady=(16, 8), sticky="nsew")
+        
+        msg_label = ctk.CTkLabel(msg_frame, text=info_text, wraplength=350, justify="left", font=("Consolas", 11))
+        msg_label.pack(padx=12, pady=12)
         
         # OK button
         ok_btn = ctk.CTkButton(popup, text="OK", width=80, command=popup.destroy)
         ok_btn.grid(row=1, column=0, pady=(0, 12))
+        
+        # Update to calculate size
+        popup.update_idletasks()
+        
+        # Set geometry based on content (min 400x200)
+        width = max(400, popup.winfo_reqwidth())
+        height = max(180, popup.winfo_reqheight())
+        popup.geometry(f"{width}x{height}")
+        
+        # Center on parent
+        x = self.winfo_rootx() + 100
+        y = self.winfo_rooty() + 50
+        popup.geometry(f"+{x}+{y}")
         
         # Close on escape
         popup.bind("<Escape>", lambda e: popup.destroy())
