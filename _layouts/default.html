@@ -15,6 +15,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ '/assets/styles.css' | relative_url }}">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 24 24'%3E%3Cpath fill='%230066ff' d='M12 22q-3.75 0-6.375-2.625T3 13q0-2.1.988-3.9T6.7 5.1q.2-.1.425-.05T7.5 5.3q.1.2.063.438T7.3 6q-1.35 1.1-2.075 2.7T4.5 13q0 3.15 2.175 5.325T12 20.5q3.15 0 5.325-2.175T19.5 13q0-1.95-.8-3.587T16.5 6.2q-.2-.15-.238-.387T16.35 5.35q.15-.2.375-.25t.425.05q1.85 1.1 2.85 2.9T21 13q0 3.75-2.625 6.375T12 22m0-5.5q-1.875 0-3.187-1.313T7.5 12t1.313-3.187T12 7.5t3.188 1.313T16.5 12t-1.312 3.187T12 16.5'/%3E%3C/svg%3E" />
+    <script>window.__searchIndex = "{{ '/search.json' | relative_url }}";</script>
+    <script>window.__searchPage = "{{ 'search' | relative_url }}";</script>
   </head>
   
   <body>
@@ -53,6 +55,10 @@
             </a>
           </div>
           <div class="nav-actions">
+            <div class="top-search">
+              <input type="text" id="siteSearchTop" class="search-input search-top" placeholder="Search…" aria-label="Search site" />
+              <div id="searchResultsTop" class="search-results top" aria-live="polite"></div>
+            </div>
             <a class="btn btn-outline" href="{{ page.github_url | default: 'https://github.com/DreamRepo' }}">GitHub</a>
           </div>
         </nav>

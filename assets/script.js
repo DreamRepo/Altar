@@ -207,3 +207,155 @@
   // Run immediately since script is at bottom of body
   initFinder();
 })();
+
+// Simple Site Search (client-side)
+(function () {
+  const inputs = document.querySelectorAll('.search-input');
+  if (!inputs.length) return;
+
+  let indexEntries = [];
+  const idxUrl = (window.__searchIndex || 'search.json');
+  fetch(idxUrl)
+    .then(r => r.json())
+    .then(data => {
+      indexEntries = data.entries || [];
+    })
+    .catch(() => {
+      // Fallback minimal index
+      indexEntries = [
+        { title: 'Installation', url: '/', content: '' },
+        { title: 'Sender', url: 'sender', content: '' },
+        { title: 'Viewer', url: 'viewer', content: '' },
+        { title: 'Extractor', url: 'extractor', content: '' },
+        { title: 'Deploy', url: 'deploy', content: '' },
+        { title: 'Manage Users', url: 'manage', content: '' },
+        { title: 'Backup/Transfer', url: 'backup', content: '' },
+      ];
+    });
+  
+    // Enter: redirect to search page with query
+    inputs.forEach(input => {
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const q = input.value.trim();
+          if (q.length > 0) {
+            const target = window.__searchPage || 'search';
+            const base = target.endsWith('.html') ? target : target;
+            window.location.href = `${base}?q=${encodeURIComponent(q)}`;
+          }
+        }
+      });
+    });
+
+  function attachSearch(input) {
+    const results = input.nextElementSibling && input.nextElementSibling.classList.contains('search-results')
+      ? input.nextElementSibling : null;
+    if (!results) return;
+
+    function render(list) {
+      if (!list || list.length === 0) {
+        results.style.display = 'none';
+        results.innerHTML = '';
+        return;
+      }
+      results.innerHTML = list.map(p => `<a href="${p.url}">${p.title}</a>`).join('');
+      results.style.display = 'block';
+    }
+
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      if (q.length === 0) return render([]);
+
+      const tokens = q.split(/\s+/).filter(Boolean);
+      const filtered = indexEntries.filter(p => {
+        const hay = `${p.title} ${p.content || ''}`.toLowerCase();
+        // Require all tokens to be present (AND search)
+        return tokens.every(t => hay.includes(t));
+      }).slice(0, 10);
+
+      render(filtered);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (e.target !== input && !results.contains(e.target)) {
+        render([]);
+      }
+    });
+  }
+
+  inputs.forEach(attachSearch);
+})();
+
+  // Search Results Page Renderer
+  (function () {
+    const container = document.getElementById('searchPageResults');
+    if (!container) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const q = (params.get('q') || '').trim();
+    const idxUrl = (window.__searchIndex || 'search.json');
+
+    function highlight(text, tokens) {
+      let t = text;
+      tokens.forEach(tok => {
+        const re = new RegExp(`(${tok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        t = t.replace(re, '<mark>$1</mark>');
+      });
+      return t;
+    }
+
+    function excerpt(content, tokens, len=180) {
+      const lc = content.toLowerCase();
+      let pos = -1;
+      for (const tok of tokens) {
+        pos = lc.indexOf(tok.toLowerCase());
+        if (pos !== -1) break;
+      }
+      if (pos === -1) pos = 0;
+      const start = Math.max(0, pos - Math.floor(len/3));
+      const end = Math.min(content.length, start + len);
+      let snippet = content.slice(start, end);
+      if (start > 0) snippet = '…' + snippet;
+      if (end < content.length) snippet = snippet + '…';
+      return highlight(snippet, tokens);
+    }
+
+    function renderResults(entries, tokens) {
+      if (!entries.length) {
+        container.innerHTML = '<p class="lead">No results found.</p>';
+        return;
+      }
+      container.innerHTML = entries.map(e => {
+        const ex = excerpt(e.content || '', tokens);
+        const url = e.url || '#';
+        return `
+          <div class="search-item">
+            <h3 class="search-title"><a href="${url}">${e.title}</a></h3>
+            <p class="search-excerpt">${ex}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    fetch(idxUrl)
+      .then(r => r.json())
+      .then(data => {
+        const entries = (data.entries || []);
+        const tokens = q.toLowerCase().split(/\s+/).filter(Boolean);
+        // Rank by number of token hits (OR search, more matches first)
+        const ranked = entries
+          .map(e => {
+            const hay = `${e.title} ${e.content || ''}`.toLowerCase();
+            const hits = tokens.reduce((acc, t) => acc + (hay.includes(t) ? 1 : 0), 0);
+            return { e, hits };
+          })
+          .filter(x => x.hits > 0)
+          .sort((a,b) => b.hits - a.hits)
+          .map(x => x.e)
+          .slice(0, 20);
+        renderResults(ranked, tokens);
+      })
+      .catch(() => {
+        container.innerHTML = '<p class="lead">Search is unavailable right now.</p>';
+      });
+  })();

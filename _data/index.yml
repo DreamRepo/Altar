@@ -323,9 +323,11 @@ resource_finder:
       - backup_db
 
     online_tools:
+      - deploy_stack
       - manage_users
 
     online_scripts:
+      - deploy_stack
       - manage_users
 
 hero:

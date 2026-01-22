@@ -1,0 +1,109 @@
+---
+layout: null
+permalink: /search.json
+---
+{
+  "entries": [
+    {
+      "title": {{ site.data.index.meta.title | jsonify }},
+      "url": {{ '/' | relative_url | jsonify }},
+      "content": {% capture index_text %}
+        {{ site.data.index.meta.title }} {{ site.data.index.meta.description }}
+        {{ site.data.index.hero.title }} {{ site.data.index.hero.subtitle }}
+        {% if site.data.index.who_is_it_for %}
+          {{ site.data.index.who_is_it_for.title }} {{ site.data.index.who_is_it_for.lead }}
+          {% for b in site.data.index.who_is_it_for.benefits %} {{ b }} {% endfor %}
+        {% endif %}
+        {% if site.data.index.capabilities %}
+          {% for c in site.data.index.capabilities.bubbles %} {{ c.label }} {% endfor %}
+        {% endif %}
+        {% if site.data.index.tools %}
+          {% for t in site.data.index.tools.cards %} {{ t.title }} {{ t.description }} {% endfor %}
+        {% endif %}
+        {% if site.data.index.resource_finder and site.data.index.resource_finder.resources %}
+          {% for r in site.data.index.resource_finder.resources %}
+            {% assign key = r[0] %}{% assign val = r[1] %}
+            {{ val.title }} {{ val.short_description }} {{ val.description }}
+          {% endfor %}
+        {% endif %}
+        {% if site.data.index.requirement %}
+          {{ site.data.index.requirement.title }} {{ site.data.index.requirement.description }} {{ site.data.index.requirement.docker_explanation }}
+        {% endif %}
+      {% endcapture %}{{ index_text | markdownify | strip_html | strip_newlines | jsonify }}
+    },
+    {
+      "title": {{ site.data.sender.meta.title | jsonify }},
+      "url": {{ 'sender' | relative_url | jsonify }},
+      "content": {% capture sender_text %}
+        {{ site.data.sender.meta.title }} {{ site.data.sender.meta.description }}
+        {{ site.data.sender.hero.title }} {{ site.data.sender.hero.subtitle }}
+        {% for f in site.data.sender.features %} {{ f.title }} {{ f.description }} {% endfor %}
+        {% if site.data.sender.requirements and site.data.sender.requirements.items %}
+          {% for it in site.data.sender.requirements.items %}
+            {% assign key = it[0] %}{% assign val = it[1] %}
+            {{ val.title }} {{ val.description }}
+          {% endfor %}
+        {% endif %}
+        {% for q in site.data.sender.quick_start %} {{ q.title }} {{ q.content }} {{ q.code }} {% endfor %}
+        {% for c in site.data.sender.file_categories %} {{ c.label }} {{ c.value }} {% endfor %}
+        {% if site.data.sender.batch_sending %}
+          {{ site.data.sender.batch_sending.description }} {{ site.data.sender.batch_sending.example }}
+        {% endif %}
+        {% for v in site.data.sender.viewing_results %} {{ v.label }} {{ v.value }} {% endfor %}
+        {% for r in site.data.sender.related_tools %} {{ r.title }} {{ r.description }} {% endfor %}
+      {% endcapture %}{{ sender_text | markdownify | strip_html | strip_newlines | jsonify }}
+    },
+    {
+      "title": {{ site.data.viewer.meta.title | jsonify }},
+      "url": {{ 'viewer' | relative_url | jsonify }},
+      "content": {% capture viewer_text %}
+        {{ site.data.viewer.meta.title }} {{ site.data.viewer.meta.description }}
+        {{ site.data.viewer.hero.title }} {{ site.data.viewer.hero.subtitle }}
+        {% for f in site.data.viewer.features %} {{ f.title }} {{ f.description }} {% endfor %}
+        {% if site.data.viewer.requirements and site.data.viewer.requirements.items %}
+          {% for it in site.data.viewer.requirements.items %}
+            {% assign key = it[0] %}{% assign val = it[1] %}
+            {{ val.title }} {{ val.description }}
+          {% endfor %}
+        {% endif %}
+        {% for q in site.data.viewer.quick_start %} {{ q.title }} {{ q.content }} {{ q.code }} {% endfor %}
+        {% if site.data.viewer.features_list and site.data.viewer.features_list.items %}
+          {% for i in site.data.viewer.features_list.items %} {{ i }} {% endfor %}
+        {% endif %}
+        {% for r in site.data.viewer.related_tools %} {{ r.title }} {{ r.description }} {% endfor %}
+      {% endcapture %}{{ viewer_text | markdownify | strip_html | strip_newlines | jsonify }}
+    },
+    {
+      "title": {{ site.data.extractor.meta.title | jsonify }},
+      "url": {{ 'extractor' | relative_url | jsonify }},
+      "content": {% capture extractor_text %}
+        {{ site.data.extractor.meta.title }} {{ site.data.extractor.meta.description }}
+        {{ site.data.extractor.hero.title }} {{ site.data.extractor.hero.subtitle }}
+        {% for f in site.data.extractor.features %} {{ f.title }} {{ f.description }} {% endfor %}
+        {% if site.data.extractor.requirements and site.data.extractor.requirements.items %}
+          {% for it in site.data.extractor.requirements.items %}
+            {% assign key = it[0] %}{% assign val = it[1] %}
+            {{ val.title }} {{ val.description }}
+          {% endfor %}
+        {% endif %}
+        {% for q in site.data.extractor.quick_start %} {{ q.title }} {{ q.content }} {{ q.code }} {% endfor %}
+        {% for r in site.data.extractor.related_tools %} {{ r.title }} {{ r.description }} {% endfor %}
+      {% endcapture %}{{ extractor_text | markdownify | strip_html | strip_newlines | jsonify }}
+    },
+    {
+      "title": "Deploy (Docker Compose)",
+      "url": {{ 'deploy' | relative_url | jsonify }},
+      "content": {% capture d_md %}{% include_relative AltarDocker/DEPLOY.md %}{% endcapture %}{{ d_md | markdownify | strip_html | strip_newlines | jsonify }}
+    },
+    {
+      "title": "Manage Users",
+      "url": {{ 'manage' | relative_url | jsonify }},
+      "content": {% capture m_md %}{% include_relative AltarDocker/MANAGE_USERS.md %}{% endcapture %}{{ m_md | markdownify | strip_html | strip_newlines | jsonify }}
+    },
+    {
+      "title": "Backup & Migration",
+      "url": {{ 'backup' | relative_url | jsonify }},
+      "content": {% capture b_md %}{% include_relative AltarDocker/BACKUP.md %}{% endcapture %}{{ b_md | markdownify | strip_html | strip_newlines | jsonify }}
+    }
+  ]
+}
