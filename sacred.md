@@ -1,6 +1,9 @@
 # Sacred — quick concepts
 
-![Sacred script overview](/assets/quick_description/sacred_script.png)
+
+#### Illustration: from original script to Sacred script:
+
+![Sacred script overview](https://raw.githubusercontent.com/Alienor134/Altar/refs/heads/dev/assets/quick_description/sacred_script.png)
 
 - Official docs: https://sacred.readthedocs.io/
 - Original paper (PDF): https://ml.informatik.uni-freiburg.de/wp-content/uploads/papers/17-SciPy-Sacred.pdf
