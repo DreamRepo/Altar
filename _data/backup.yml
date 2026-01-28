@@ -1,0 +1,16 @@
+meta:
+  title: "AltarDocker — Backup"
+  description: "Developer guide: backup and migration for the Altar stack."
+
+hero:
+  icon: "fa-solid fa-database"
+  title: "Backup"
+  subtitle: "Procedures for backing up and migrating MongoDB and related data."
+  primary_cta:
+    text: "Read docs"
+    link: "#full-documentation"
+  secondary_cta:
+    text: "View source"
+    link: "https://github.com/DreamRepo/AltarDocker"
+
+# Intentionally minimal — page will render the submodule markdown only.

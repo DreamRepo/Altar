@@ -1,0 +1,16 @@
+meta:
+  title: "AltarDocker — Manage Users"
+  description: "Developer guide: user management for the Altar stack."
+
+hero:
+  icon: "fa-solid fa-user-gear"
+  title: "Manage Users"
+  subtitle: "Administrative tasks for user management in the AltarDocker stack."
+  primary_cta:
+    text: "Read docs"
+    link: "#full-documentation"
+  secondary_cta:
+    text: "View source"
+    link: "https://github.com/DreamRepo/AltarDocker"
+
+# Intentionally minimal — page will render the submodule markdown only.

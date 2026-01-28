@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ page.title | default: site.title }}</title>
+    <meta name="description" content="{{ page.description | default: site.description }}" />
+    <meta property="og:title" content="{{ page.title | default: site.title }}" />
+    <meta property="og:description" content="{{ page.description | default: site.description }}" />
+    <meta property="og:type" content="website" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ '/assets/styles.css' | relative_url }}">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 24 24'%3E%3Cpath fill='%230066ff' d='M12 22q-3.75 0-6.375-2.625T3 13q0-2.1.988-3.9T6.7 5.1q.2-.1.425-.05T7.5 5.3q.1.2.063.438T7.3 6q-1.35 1.1-2.075 2.7T4.5 13q0 3.15 2.175 5.325T12 20.5q3.15 0 5.325-2.175T19.5 13q0-1.95-.8-3.587T16.5 6.2q-.2-.15-.238-.387T16.35 5.35q.15-.2.375-.25t.425.05q1.85 1.1 2.85 2.9T21 13q0 3.75-2.625 6.375T12 22m0-5.5q-1.875 0-3.187-1.313T7.5 12t1.313-3.187T12 7.5t3.188 1.313T16.5 12t-1.312 3.187T12 16.5'/%3E%3C/svg%3E" />
+    <script>window.__searchIndex = "{{ '/search.json' | relative_url }}";</script>
+    <script>window.__searchPage = "{{ 'search' | relative_url }}";</script>
+    <!-- Markdown renderer for remote README fallback -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+  </head>
+  
+  <body>
+    <!-- Sidebar navigation -->
+    <aside class="sidebar" aria-label="Documentation menu">
+      <div class="sidebar-brand">
+        <a href="{{ '/' | relative_url }}" class="brand-link">
+          <span class="logo" aria-hidden="true">◆</span>
+          <span class="brand-text">Altar</span>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">Docs</div>
+        <a href="{{ '/' | relative_url }}">Installation</a>
+        <a href="{{ 'sacred' | relative_url }}">Sacred</a>
+        <div class="sidebar-section">Tools</div>
+        <a href="{{ 'sender' | relative_url }}">Sender</a>
+        <a href="{{ 'viewer' | relative_url }}">Viewer</a>
+        <a href="{{ 'extractor' | relative_url }}">Extractor</a>
+        <div class="sidebar-section">Dev / Sysadmin</div>
+        <a href="{{ 'deploy' | relative_url }}">Deploy</a>
+        <a href="{{ 'manage' | relative_url }}">Manage Users</a>
+        <a href="{{ 'backup' | relative_url }}">Backup/Transfer</a>
+        <div class="sidebar-actions">
+          <a class="btn btn-outline" href="{{ page.github_url | default: 'https://github.com/DreamRepo' }}">GitHub</a>
+        </div>
+      </nav>
+    </aside>
+
+    <div class="content-with-sidebar">
+      <header class="site-header {{ page.header_class }}">
+        <nav class="nav">
+          <div class="brand">
+            <a href="{{ '/' | relative_url }}" class="brand-link">
+              <span class="logo" aria-hidden="true">◆</span>
+              <span class="brand-text">Altar</span>
+            </a>
+          </div>
+          <div class="nav-actions">
+            <div class="top-search">
+              <input type="text" id="siteSearchTop" class="search-input search-top" placeholder="Search…" aria-label="Search site" />
+              <div id="searchResultsTop" class="search-results top" aria-live="polite"></div>
+            </div>
+            <a class="btn btn-outline" href="{{ page.github_url | default: 'https://github.com/DreamRepo' }}">GitHub</a>
+          </div>
+        </nav>
+
+        {{ content }}
+      </header>
+    </div>
+
+    <script src="{{ '/assets/script.js' | relative_url }}"></script>
+  </body>
+</html>

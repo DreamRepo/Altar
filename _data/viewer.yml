@@ -1,0 +1,100 @@
+meta:
+  title: "AltarViewer"
+  description: "Web app to connect to your MongoDB experiments and launch Omniboard dashboards."
+
+hero:
+  icon: "fa-solid fa-tv"
+  title: "AltarViewer"
+  subtitle: "Web app to connect to your MongoDB experiments and open Omniboard in one click."
+  primary_cta:
+    text: "Quick start"
+    link: "#quick-start"
+  secondary_cta:
+    text: "Download Release"
+    link: "https://github.com/DreamRepo/AltarViewer/releases"
+  tertiary_cta:
+    text: "View source"
+    link: "https://github.com/DreamRepo/AltarViewer"
+
+features:
+  - icon: "fa-solid fa-chart-line"
+    title: "Visualize Sacred databases online"
+    description: "Open your Sacred experiment databases in Omniboard via a simple web interface."
+
+requirements:
+  title: "What you need"
+  items:
+    docker:
+      title: "Docker Desktop"
+      icon: "fa-brands fa-docker"
+      description: "Install Docker Desktop and ensure it is running."
+      link: "https://docs.docker.com/get-docker/"
+      link_text: "Download Docker"
+    compass:
+      title: "MongoDB Compass"
+      icon: "fa-solid fa-database"
+      description: "Install MongoDB Compass to inspect and test connections to your MongoDB instance."
+      link: "https://www.mongodb.com/products/compass"
+      link_text: "Download MongoDB Compass"
+    sacred:
+      title: "Sacred-formatted data"
+      icon: "fa-solid fa-book"
+      description: "Your experiments should be logged using the Sacred format so Omniboard and AltarViewer can read them."
+      link: "https://sacred.readthedocs.io/"
+      link_text: "Sacred Docs"
+
+quick_start:
+  - title: "Install option 1 — Executable"
+    content: "Download the latest platform-specific launcher from <a href=\"https://github.com/DreamRepo/AltarViewer/releases\">GitHub Releases</a> and run it."
+
+  - title: "Install option 2 — Python app"
+    code: |
+      git clone https://github.com/DreamRepo/AltarViewer.git
+      cd AltarViewer
+      python -m venv venv
+      venv\Scripts\activate      # Windows
+      # source venv/bin/activate  # macOS/Linux
+      pip install -r requirements.txt
+      python -m src.main
+    content: "Clone the repository and run the Python application in a virtual environment."
+
+
+  - title: "Start Docker"
+    code: |
+      # Windows: Launch Docker Desktop and wait until it's ready
+      # Tip: look for the green/Ready status in the tray
+
+      # Linux (Docker Engine):
+      sudo systemctl start docker
+
+      # Linux (Docker Desktop):
+      systemctl --user start docker-desktop
+
+      # Verify Docker is available:
+      docker version
+    content: "Ensure Docker is running before launching Omniboard. If Docker isn't ready, the launch will fail."
+
+
+  - title: "Connect to MongoDB"
+    content: "Choose between connecting by port (default: 27017), by full MongoDB URL or by credentials, then click <strong>Connect</strong> to list databases."
+
+  - title: "Launch Omniboard"
+    content: "Select a database and click <strong>Launch Omniboard</strong>. Open Omniboard using the links shown in the AltarViewer UI."
+
+features_list:
+  title: ""
+  items: []
+
+related_tools:
+  - icon: "fa-solid fa-cubes"
+    title: "AltarDocker"
+    description: "Deploy MongoDB, MinIO, Omniboard, and AltarExtractor with Docker Compose."
+    link: "docker"
+  - icon: "fa-solid fa-magnifying-glass-chart"
+    title: "AltarExtractor"
+    description: "Browse and filter Sacred experiments with a modern web UI."
+    link: "extractor"
+  - icon: "fa-solid fa-paper-plane"
+    title: "AltarSender"
+    description: "Send experiments to Sacred and artifacts to MinIO."
+    link: "sender"
