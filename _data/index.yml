@@ -1,0 +1,424 @@
+meta:
+  title: "Altar — Experiment Data Management"
+  description: "End‑to‑end tools to manage experimental data."
+
+# Resource Path Finder - maps user profiles + goals to resources
+resource_finder:
+  title: "Find Your Path"
+  subtitle: "Get a personalized list of resources based on your role and goals"
+  
+  profiles:
+    - id: "student"
+      label: "Research Student (PhD/Postdoc/Masters)"
+    - id: "scientist"
+      label: "Data Scientist"
+    - id: "engineer"
+      label: "Data Engineer"
+    - id: "manager"
+      label: "Project Manager"
+    - id: "PI"
+      label: "Principal Investigator"   
+    - id: "admin"
+      label: "Lab Administrator"
+    - id: "devops"
+      label: "DevOps/SysAdmin (VM deployment)"
+
+  
+  approaches:
+    - id: "tools"
+      label: "Apps and web interfaces"
+    - id: "scripts"
+      label: "Writing Python scripts"
+  
+  detail_levels:
+    - id: "detailed"
+      label: "Detailed explanations"
+    - id: "quick"
+      label: "Quick explanations"
+  
+  goals:
+    - id: "upload"
+      label: "Upload experiments to a database"
+    - id: "upload_simulated"
+      label: "Upload simulations to a database"
+    - id: "upload_instrument"
+      label: "Upload data from lab instruments"
+    - id: "analyze"
+      label: "Browse and analyze existing experiments"
+    - id: "dmp"
+      label: "Write a Data Management Plan (DMP)"
+    - id: "devops"
+      label: "Deploy Altar on lab servers / cloud"
+    - id: "online"
+      label: "Provide (secured) online access to a database"
+    - id: "transfer"
+      label: "Backup / migrate a database (eg. local to server)"
+
+    - id: "user_management"
+      label: "Manage users and permissions"
+
+    
+
+
+  
+  # Resource definitions
+  resources:
+    docker:
+      title: "Install Docker Desktop"
+      icon: "fa-brands fa-docker"
+      short_description: "Install Docker to run all Altar services in containers."
+      description: "<br><strong>What is Docker?</strong> Docker is like a virtual container that packages all the software Altar needs to run. Think of it as a complete workspace that works the same way on any computer — whether you're on Windows, Mac, or Linux.<br><br><strong>Why it helps:</strong> Instead of manually installing and configuring multiple programs (databases, servers, etc.), Docker does it all automatically in one command."
+      link: "https://docs.docker.com/get-docker/"
+      link_text: "Download Docker"
+    
+    mongodb:
+      title: "Install MongoDB Community"
+      icon: "fa-solid fa-database"
+      short_description: "Free database for storing experiment metadata."
+      description: "MongoDB Community Edition is the free, open-source database that stores all your experiment metadata. It runs locally on your computer and provides the storage backend for Sacred experiments. You need to install and run MongoDB before you can upload or query experiments - it's the foundation of the Altar system."
+      link: "https://www.mongodb.com/try/download/community"
+      link_text: "Download MongoDB Community"
+    
+    minio:
+      title: "MinIO for Large Files"
+      icon: "fa-solid fa-hard-drive"
+      short_description: "Object storage for large experiment files."
+      description: "MinIO is an S3-compatible object storage system that handles large files like videos, images, and raw datasets. While MongoDB stores metadata and small files, MinIO stores the big data files efficiently. It's optional but recommended for experiments with large artifacts. MinIO can be easily deployed using AltarDocker."
+      link: "https://min.io/"
+      link_text: "Learn about MinIO"
+    
+    sacred:
+      title: "Sacred Documentation"
+      icon: "fa-solid fa-book"
+      short_description: "Python framework for tracking experiments."
+      description: "Sacred is a Python framework that automatically tracks your experiments. It captures configuration, seeds, dependencies, metrics and results in a structured way that Altar can store and query."
+      link: "sacred"
+      link_text: "Read Quick Guide"
+    
+    sacred_paper:
+      title: "Sacred Paper"
+      icon: "fa-solid fa-file-pdf"
+      short_description: "Academic paper on Sacred framework."
+      description: "The original Sacred paper explains the motivation, design, and implementation of the Sacred experiment tracking framework. It describes how Sacred solves common problems in experiment management and reproducibility. Great for understanding the scientific foundation behind the tool."
+      link: "https://ml.informatik.uni-freiburg.de/wp-content/uploads/papers/17-SciPy-Sacred.pdf"
+      link_text: "Read Paper"
+    
+    viewer:
+      title: "AltarViewer Guide"
+      icon: "fa-solid fa-tv"
+      short_description: "Desktop app to visualize experiments."
+      description: "AltarViewer is a desktop application that connects to your MongoDB database and launches Omniboard - a web-based dashboard for visualizing experiments. With one click, you can see all your experiments in a table, compare configurations, view metrics over time, and explore results. It's the easiest way to get started with visualizing your experiment data."
+      link: "viewer"
+      link_text: "Go to AltarViewer"
+    
+    sender:
+      title: "AltarSender Setup"
+      icon: "fa-solid fa-paper-plane"
+      short_description: "Upload experiments with a GUI."
+      description: "AltarSender is a desktop application that uploads your experiment folders to the database. It maps your local folder structure to Sacred experiments, sends metadata to MongoDB, and uploads large files (images, videos, datasets) to MinIO storage. You can configure which folders to send and track upload progress - no coding required."
+      link: "sender"
+      link_text: "Go to AltarSender"
+    
+    extractor:
+      title: "AltarExtractor Guide"
+      icon: "fa-solid fa-magnifying-glass-chart"
+      short_description: "Filter and export experiment data."
+      description: "AltarExtractor is a web application for advanced data exploration. It lets you filter experiments by any parameter, visualize data interactively with PyGWalker (Tableau-style drag-and-drop), create custom plots, and export filtered datasets as CSV files. Perfect for creating publication-ready datasets or sharing data with collaborators."
+      link: "extractor"
+      link_text: "Go to AltarExtractor"
+    
+    altardocker:
+      title: "AltarDocker Deployment"
+      icon: "fa-solid fa-cubes"
+      short_description: "Deploy full Altar stack with Docker."
+      description: "AltarDocker is a Docker Compose configuration that sets up the complete Altar infrastructure stack with a single command. It launches MongoDB (for metadata), MinIO (for file storage), Omniboard (for visualization), and optionally AltarExtractor (for analysis). This is essential for both local development and team deployments. Includes user management and backup scripts."
+      link: "docker"
+      link_text: "Go to AltarDocker"
+
+    deploy_stack:
+      title: "Deploy (Docker Compose)"
+      icon: "fa-solid fa-cubes"
+      short_description: "Developer guide for deployment."
+      description: "Minimal guide pulled from AltarDocker/DEPLOY.md."
+      link: "deploy"
+      link_text: "Read guide"
+
+    manage_users:
+      title: "Manage Users"
+      icon: "fa-solid fa-user-gear"
+      short_description: "Administrative user management tasks."
+      description: "Minimal guide pulled from AltarDocker/MANAGE_USERS.md."
+      link: "manage"
+      link_text: "Read guide"
+
+    backup_db:
+      title: "Backup & Migration"
+      icon: "fa-solid fa-database"
+      short_description: "Procedures for backups and transfers."
+      description: "Minimal guide pulled from AltarDocker/BACKUP.md."
+      link: "backup"
+      link_text: "Read guide"
+    
+    paper:
+      title: "Read the Altar Paper"
+      icon: "fa-solid fa-file-pdf"
+      short_description: "Academic paper on Altar system."
+      description: "The Altar paper provides a comprehensive overview of the system architecture, design decisions, and use cases. It explains how all the components work together, compares Altar to other experiment management tools, and presents real-world examples from research labs. Great for understanding the big picture and citing Altar in your publications."
+      link: "#paper"
+      link_text: "Read Paper"
+    
+    incense:
+      title: "Incense Library"
+      icon: "fa-solid fa-code"
+      short_description: "Python API for querying experiments."
+      description: "Incense is a Python library that provides a clean, Pythonic API for querying Sacred experiments from MongoDB. Instead of writing raw database queries, you can filter and access your experiments using simple Python code. Perfect for scripting custom analyses, building automated pipelines, or integrating experiment data into your research workflow."
+      link: "https://github.com/JarnoRFB/incense"
+      link_text: "View on GitHub"
+    
+    pygwalker:
+      title: "PyGWalker Documentation"
+      icon: "fa-solid fa-chart-simple"
+      short_description: "Interactive Tableau-style visualizations."
+      description: "PyGWalker (Graphic Walker) turns your pandas DataFrames into interactive, Tableau-style visualizations directly in Python notebooks or web apps. Drag and drop fields to create charts, apply filters, and explore patterns in your experiment data - no need to learn complex plotting libraries. AltarExtractor uses PyGWalker for its visualization features."
+      link: "https://docs.kanaries.net/pygwalker"
+      link_text: "Read Docs"
+    
+    omniboard:
+      title: "Omniboard Documentation"
+      icon: "fa-solid fa-chart-line"
+      short_description: "Web dashboard for Sacred experiments."
+      description: "Omniboard is an open-source web dashboard specifically designed for Sacred experiments. It displays your experiments in a searchable table, shows metrics and plots, compares configurations side-by-side, and lets you tag or delete runs. Omniboard is the standard visualization tool for Sacred and comes bundled with AltarViewer for easy access."
+      link: "https://vivekratnavel.github.io/omniboard/"
+      link_text: "Read Docs"
+  
+  # Which goals are relevant for each profile
+  profileGoals:
+    student:
+      - upload
+      - upload_simulated
+      - upload_instrument
+      - analyze
+      - transfer
+    scientist:
+      - upload
+      - upload_simulated
+      - analyze
+      - transfer
+    engineer:
+      - devops
+      - upload
+      - upload_simulated
+      - upload_instrument
+      - analyze
+      - dmp
+      - online
+      - transfer
+    manager:
+      - devops
+      - dmp
+      - transfer
+    PI:
+      - devops
+      - dmp
+    admin:
+      - devops
+      - upload
+      - upload_instrument
+      - upload_simulated
+      - analyze
+      - dmp
+      - online
+      - transfer
+
+    devops:
+      - devops
+      - online
+      - dmp
+      - transfer
+
+  # Resources mapped by goal_approach
+  paths:
+    upload_tools:
+      - docker
+      - mongodb
+      - sender
+      - viewer
+    upload_scripts:
+      - docker
+      - mongodb
+      - sacred
+      - viewer
+    upload_simulated_tools:
+      - docker
+      - mongodb
+      - sender
+      - viewer
+    upload_simulated_scripts:
+      - docker
+      - mongodb
+      - sacred
+      - viewer
+    upload_instrument_tools:
+      - docker
+      - mongodb
+      - sender
+      - viewer
+    upload_instrument_scripts:
+      - docker
+      - mongodb
+      - sacred
+      - viewer
+    analyze_tools:
+      - docker
+      - mongodb
+      - sender
+      - viewer
+      - extractor
+    analyze_scripts:
+      - docker
+      - mongodb
+      - sacred
+      - viewer
+      - incense
+      - pygwalker
+    devops_tools:
+      - docker
+      - sacred
+      - paper
+      - altardocker
+      - deploy_stack
+      - manage_users
+      - backup_db
+      - viewer
+      - sender
+      - extractor    
+      
+    devops_scripts:
+      - docker
+      - deploy_stack
+      - manage_users
+      - backup_db
+      - minio
+      - omniboard
+      - incense
+      - pygwalker
+
+    dmp_tools:
+      - paper
+      - sacred
+
+    dmp_scripts:
+      - paper
+      - sacred
+
+
+    transfer_tools:
+      - deploy_stack
+      - backup_db
+
+    transfer_scripts:
+      - deploy_stack
+      - backup_db
+
+    online_tools:
+      - deploy_stack
+      - manage_users
+
+    online_scripts:
+      - deploy_stack
+      - manage_users
+
+hero:
+  title: "Manage experiment data, end‑to‑end"
+  subtitle: "A set of tools for (meta)data handling in databases."
+  primary_cta:
+    text: "Explore tools"
+    link: "#projects"
+  secondary_cta:
+    text: "Quick start (coders)"
+    link: "#quickstart"
+  tertiary_cta:
+    text: "Quick start (non-coders)"
+    link: "#quickstart-noncoder"
+
+who_is_it_for:
+  title: "Why FAIR?"
+  icon: "fa-solid fa-certificate"
+  lead: "Altar helps you implement <strong>FAIR data principles</strong> (Findable, Accessible, Interoperable, Reusable) for your experimental research:"
+  benefits:
+    - "<strong>Findable</strong>: Search and filter experiments by any parameter, making data discovery effortless"
+    - "<strong>Accessible</strong>: Web interfaces and APIs provide multiple access points to your data"
+    - "<strong>Interoperable</strong>: Standard formats (Sacred, MongoDB, MinIO) ensure compatibility with other tools"
+    - "<strong>Reusable</strong>: Complete metadata and provenance tracking enables reproducibility and reanalysis"
+  closing: "By centralizing your data in structured databases with proper metadata, Altar makes your research more transparent, reproducible, and valuable to the scientific community."
+
+capabilities:
+  title: "What you can do"
+  bubbles:
+    - icon: "fa-solid fa-cloud-arrow-up"
+      label: "Upload experimental data"
+      link: "sender"
+    - icon: "fa-solid fa-database"
+      label: "Store large raw data"
+      link: "sender"
+    - icon: "fa-solid fa-table"
+      label: "Store metadata and results"
+      link: "sender"
+    - icon: "fa-solid fa-chart-line"
+      label: "Visualize experimental data"
+      link: "viewer"
+    - icon: "fa-solid fa-filter"
+      label: "Filter, Visualize and download datasets"
+      link: "extractor"
+
+tools:
+  title: "Tools overview"
+  cards:
+    - icon: "fa-solid fa-paper-plane"
+      title: "AltarSender"
+      description: "Application to send (meta)data stored in local folders to a database where they can be organized and visualized."
+      link: "sender"
+      linkText: "Learn more →"
+    - icon: "fa-solid fa-tv"
+      title: "AltarViewer"
+      description: "Desktop app to connect to MongoDB, select a database, and launch Omniboard in Docker for experiment visualization."
+      link: "viewer"
+      linkText: "Learn more →"
+    - icon: "fa-solid fa-magnifying-glass-chart"
+      title: "AltarExtractor"
+      description: "Application to explore the database, filter experiments, visualise data and export datasets."
+      link: "extractor"
+      linkText: "Learn more →"
+
+
+quick_start_noncoder:
+  title: "Quick start for non-coders"
+  steps:
+    - title: "Install Docker Desktop"
+      description: "Download and install <a href=\"https://docs.docker.com/get-docker/\" target=\"_blank\">Docker Desktop</a> (free for personal use). Open it and wait until it shows 'Engine running'."
+    - title: "Download and set up MongoDB"
+      description: "Follow the <a href=\"https://www.mongodb.com/try/download/community\" target=\"_blank\">MongoDB community</a> instructions to download MongoDB and launch it. By default, it runs on port 27017. Check MongoDB content with <a href=\"https://www.mongodb.com/products/tools/compass\" target=\"_blank\">MongoDB Compass app</a>."
+    - title: "Send your experiments"
+      description: "Download the <a href=\"https://github.com/DreamRepo/AltarSender/releases\" target=\"_blank\">latest AltarSender release</a> and run it to upload your experiment folders to the database with a simple point-and-click interface."
+    - title: "View your data"
+      description: "Download the <a href=\"https://github.com/DreamRepo/AltarViewer/releases\" target=\"_blank\">latest AltarViewer release</a> and run it to browse your experiments in a web dashboard — run the app, enter the port and click Connect."
+    - title: "Explore and export data (optional)"
+      description: "Follow the <a href=\"extractor\">AltarExtractor guide</a> to run it with Docker. Open <a href=\"http://localhost:8050\">localhost:8050</a> to filter experiments, visualize data, and export as CSV."
+
+
+
+quick_start:
+  title: "Quick start for developers"
+  steps:
+    - title: "Install Docker Desktop"
+      description: "Download and install <a href=\"https://docs.docker.com/get-docker/\" target=\"_blank\">Docker Desktop</a> (free for personal use). Make sure it's running before proceeding."
+    - title: "Clone the repository"
+      description: "Download the ZIP or use <code>git clone https://github.com/DreamRepo/Altar.git --recurse-submodules</code>"
+    - title: "Run the local stack"
+      description: "Go to <a href=\"docker\">AltarDocker</a>, edit <code>.env</code>, then <code>docker compose up -d</code>. This sets up MongoDB (database) and MinIO (storage for large files)."
+    - title: "Send experiments"
+      description: "Use <a href=\"sender\">AltarSender</a> to map folders and push runs to Sacred and files to MinIO."
+    - title: "Visualize database content"
+      description: "Browse and filter experiments with Omniboard using <a href=\"viewer\">AltarViewer</a> "
+    - title: "Visualise data and export datasets"
+      description: "Use <a href=\"extractor\">AltarExtractor</a> to interact with data using Pygwalker and download datasets as CSV."

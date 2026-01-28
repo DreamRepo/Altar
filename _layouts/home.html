@@ -1,0 +1,261 @@
+---
+layout: default
+---
+{% assign data = site.data.index %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>{{ data.hero.title }}</h1>
+    <p class="subtitle">{{ data.hero.subtitle }}</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="{{ data.hero.primary_cta.link }}">{{ data.hero.primary_cta.text }}</a>
+      <a class="btn btn-secondary" href="{{ data.hero.secondary_cta.link }}">{{ data.hero.secondary_cta.text }}</a>
+      {% if data.hero.tertiary_cta %}
+      <a class="btn btn-secondary" href="{{ data.hero.tertiary_cta.link }}">{{ data.hero.tertiary_cta.text }}</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+  </div>
+</section>
+
+<main>
+  <!-- RESOURCE FINDER -->
+  <section id="resource-finder" class="section resource-finder-section">
+    <h2 class="section-title">{{ data.resource_finder.title }}</h2>
+    <p class="subtitle-text">{{ data.resource_finder.subtitle }}</p>
+    
+    <div class="finder-container">
+      <div class="finder-selections">
+        <!-- First Row: I am a / I want to -->
+        <div class="finder-grid">
+          <!-- Profile Selection -->
+          <div class="finder-group-compact">
+            <label class="finder-label-compact">
+              <i class="fa-solid fa-user"></i> I am a:
+            </label>
+            <ul class="finder-list">
+              {% for profile in data.resource_finder.profiles %}
+              <li class="finder-item" data-type="profile" data-id="{{ profile.id }}">
+                <span class="finder-check"><i class="fa-solid fa-check"></i></span>
+                <span class="finder-text">{{ profile.label }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Goal Selection -->
+          <div class="finder-group-compact">
+            <label class="finder-label-compact">
+              <i class="fa-solid fa-bullseye"></i> I want to:
+            </label>
+            <ul class="finder-list">
+              {% for goal in data.resource_finder.goals %}
+              <li class="finder-item" data-type="goal" data-id="{{ goal.id }}">
+                <span class="finder-check"><i class="fa-solid fa-check"></i></span>
+                <span class="finder-text">{{ goal.label }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Second Row: I prefer / Show me -->
+        <div class="finder-grid">
+          <!-- Approach Selection -->
+          <div class="finder-group-compact">
+            <label class="finder-label-compact">
+              <i class="fa-solid fa-code"></i> I prefer:
+            </label>
+            <ul class="finder-list">
+              {% for approach in data.resource_finder.approaches %}
+              <li class="finder-item" data-type="approach" data-id="{{ approach.id }}">
+                <span class="finder-check"><i class="fa-solid fa-check"></i></span>
+                <span class="finder-text">{{ approach.label }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Detail Level Selection -->
+          <div class="finder-group-compact">
+            <label class="finder-label-compact">
+              <i class="fa-solid fa-info-circle"></i> Show me:
+            </label>
+            <ul class="finder-list">
+              {% for level in data.resource_finder.detail_levels %}
+              <li class="finder-item" data-type="detail" data-id="{{ level.id }}">
+                <span class="finder-check"><i class="fa-solid fa-check"></i></span>
+                <span class="finder-text">{{ level.label }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Section (hidden initially) -->
+      <div id="resourceResults" class="finder-results" style="display: none;">
+        <div class="results-header">
+          <h3><i class="fa-solid fa-route"></i> Your Personalized Path</h3>
+          <p class="results-context"></p>
+          <button id="resetBtn" class="btn btn-secondary btn-small">
+            <i class="fa-solid fa-rotate-left"></i> Start Over
+          </button>
+        </div>
+        
+        <div class="results-timeline">
+          <!-- Resources will be injected here by JavaScript -->
+        </div>
+        
+        <div class="results-footer">
+          <p><strong>Total estimated time:</strong> <span id="totalTime"></span></p>
+          <button onclick="window.print()" class="btn btn-secondary">
+            <i class="fa-solid fa-print"></i> Print This Page
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden data for JavaScript -->
+    <script id="resourceData" type="application/json">
+      {
+        "resources": {
+          {% for res in data.resource_finder.resources %}
+          "{{ res[0] }}": {
+            "title": "{{ res[1].title }}",
+            "icon": "{{ res[1].icon }}",
+            "short_description": "{{ res[1].short_description }}",
+            "description": "{{ res[1].description }}",
+            "link": "{{ res[1].link | relative_url }}",
+            "link_text": "{{ res[1].link_text }}"
+          }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        },
+        "profileGoals": {
+          {% for profile in data.resource_finder.profileGoals %}
+          "{{ profile[0] }}": {{ profile[1] | jsonify }}{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        },
+        "paths": {
+          {% for path in data.resource_finder.paths %}
+          "{{ path[0] }}": {{ path[1] | jsonify }}{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        }
+      }
+    </script>
+  </section>
+
+  <!-- WHO IS ALTAR FOR -->
+  <section id="who-is-it-for" class="section">
+    <h2 class="section-title">{{ data.who_is_it_for.title }}</h2>
+    <div class="use-case">
+      <div class="use-case-icon" aria-hidden="true"><i class="{{ data.who_is_it_for.icon }}"></i></div>
+      <div class="use-case-content">
+        <p class="lead">{{ data.who_is_it_for.lead }}</p>
+        <ul class="benefits">
+          {% for benefit in data.who_is_it_for.benefits %}
+          <li>{{ benefit }}</li>
+          {% endfor %}
+        </ul>
+        <p>{{ data.who_is_it_for.closing }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU CAN DO -->
+  <section id="capabilities" class="section alt">
+    <h2 class="section-title">{{ data.capabilities.title }}</h2>
+    <div class="bubbles">
+      {% for bubble in data.capabilities.bubbles %}
+      <a class="bubble" href="{{ bubble.link | relative_url }}" aria-label="{{ bubble.label }}">
+        <div class="bubble-icon"><i class="{{ bubble.icon }}" aria-hidden="true"></i></div>
+        <div class="bubble-label">{{ bubble.label }}</div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- TOOLS OVERVIEW -->
+  <section id="projects" class="section">
+    <h2 class="section-title">{{ data.tools.title }}</h2>
+    <div class="cards">
+      {% for tool in data.tools.cards %}
+      <article class="card">
+        <div class="card-icon" aria-hidden="true"><i class="{{ tool.icon }}"></i></div>
+        <h3>{{ tool.title }}</h3>
+        <p>{{ tool.description }}</p>
+        <div class="card-actions">
+          <a class="btn btn-link" href="{{ tool.link | relative_url }}">{{ tool.linkText }}</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- REQUIREMENT TO RUN ALTAR -->
+  <section class="section">
+    <h2 class="section-title">{{ data.requirement.title }}</h2>
+    <article class="card">
+      <div class="card-icon" aria-hidden="true"><i class="{{ data.requirement.icon }}"></i></div>
+      <h3>{{ data.requirement.card_title }}</h3>
+      <p>{{ data.requirement.description }}</p>
+      {% if data.requirement.docker_explanation %}
+      <p class="docker-explanation">{{ data.requirement.docker_explanation }}</p>
+      {% endif %}
+      <div class="card-actions">
+        <a class="btn btn-link" href="{{ data.requirement.link | relative_url }}">{{ data.requirement.linkText }}</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- QUICK START -->
+  <section id="quickstart" class="section alt">
+    <h2 class="section-title">{{ data.quick_start.title }}</h2>
+    <div class="steps">
+      {% for step in data.quick_start.steps %}
+      <div class="step">
+        <div class="step-num">{{ forloop.index }}</div>
+        <div class="step-body">
+          <h4>{{ step.title }}</h4>
+          <p>{{ step.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- QUICK START NON-CODER -->
+  <section id="quickstart-noncoder" class="section">
+    <h2 class="section-title">{{ data.quick_start_noncoder.title }}</h2>
+    <div class="steps">
+      {% for step in data.quick_start_noncoder.steps %}
+      <div class="step">
+        <div class="step-num">{{ forloop.index }}</div>
+        <div class="step-body">
+          <h4>{{ step.title }}</h4>
+          <p>{{ step.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="foot-left">
+      <span>© <span id="year"></span> Altar</span>
+    </div>
+    <div class="foot-right">
+      <a href="https://github.com/DreamRepo/Altar">Source</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="https://github.com/DreamRepo/Altar/blob/main/LICENSE">License (GPL‑3.0)</a>
+    </div>
+  </div>
+</footer>

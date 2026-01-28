@@ -1,0 +1,133 @@
+meta:
+  title: "AltarSender — Experiment Sender (Sacred format)"
+  description: "GUI to map experiment folders and send runs to MongoDB in Sacred-compatible format; artifacts to MinIO (optional)."
+
+hero:
+  icon: "fa-solid fa-paper-plane"
+  title: "AltarSender"
+  subtitle: "A <strong>desktop GUI</strong> to map experiment folders and send runs to <strong>MongoDB</strong> in a <strong>Sacred‑compatible</strong> format. Artifacts to <strong>MinIO</strong> (optional) or local storage."
+  primary_cta:
+    text: "Features"
+    link: "#features"
+  secondary_cta:
+    text: "View source"
+    link: "https://github.com/DreamRepo/AltarSender"
+  tertiary_cta:
+    text: "Download Release"
+    link: "https://github.com/DreamRepo/AltarSender/releases"
+
+features:
+  - icon: "fa-solid fa-folder-tree"
+    title: "Map experiment folders"
+    description: "Select folders and map files to Sacred‑compatible data types: config, results, metrics, artifacts."
+  - icon: "fa-solid fa-database"
+    title: "Send to MongoDB (Sacred format)"
+    description: "Store experiment metadata, configs, results, and metrics in MongoDB using the Sacred schema (works with Omniboard)."
+  - icon: "fa-solid fa-cloud-arrow-up"
+    title: "Upload to MinIO"
+    description: "Optionally upload large raw data files to S3‑compatible MinIO storage; otherwise keep them on local/network storage."
+  - icon: "fa-solid fa-copy"
+    title: "Batch send"
+    description: "Send multiple experiments with the same folder structure in one go."
+  - icon: "fa-solid fa-file-code"
+    title: "Multiple formats"
+    description: "Supports JSON, CSV, and Excel files for configs, results, and metrics."
+  - icon: "fa-solid fa-wand-magic-sparkles"
+    title: "Smart filename → config"
+    description: "Automatically extract parameters from filenames and folder names (e.g., subject=S01, cond=stimA) and inject them into the experiment config."
+  - icon: "fa-solid fa-hard-drive"
+    title: "Local storage"
+    description: "Optionally save raw data to local or network paths instead of MinIO."
+
+requirements:
+  title: "What you need"
+  items:
+    mongodb:
+      title: "MongoDB (required)"
+      icon: "fa-solid fa-database"
+      description: "A running MongoDB instance to store experiments in the Sacred-compatible schema."
+
+    minio:
+      title: "MinIO (optional)"
+      icon: "fa-solid fa-cloud"
+      description: "Optional S3-compatible storage for large raw files. You can also use local or network storage."
+    
+    sacred:
+      title: "Sacred Understanding"
+      icon: "fa-solid fa-book"
+      description: "Familiarity with Sacred's data model helps you map your experiment files correctly."
+      link: "https://sacred.readthedocs.io/"
+      link_text: "Read Sacred Docs"
+    
+    viewer:
+      title: "AltarViewer (optional)"
+      icon: "fa-solid fa-tv"
+      description: "Use AltarViewer to visualize your uploaded experiments in Omniboard."
+      link: "viewer"
+      link_text: "Go to AltarViewer"
+
+quick_start:
+  - title: "Install dependencies"
+    code: |
+      cd AltarSender
+      python -m venv .venv
+      .venv\Scripts\activate  # Windows
+      # source .venv/bin/activate  # Linux/macOS
+      pip install -r requirements.txt
+  - title: "Run the app"
+    code: "python app.py"
+    content: "The GUI window will open."
+  - title: "Configure connections"
+    content: "Enter your MongoDB credentials. Optionally configure MinIO for large file storage."
+  - title: "Select and send"
+    content: "Choose an experiment folder, map files to data types, and click <strong>Send experiment</strong>."
+
+file_categories:
+  - label: "Config"
+    value: "Experiment configuration (JSON, CSV, Excel)"
+  - label: "Results"
+    value: "Experiment results and outputs (JSON, CSV, Excel)"
+  - label: "Metrics"
+    value: "Time series data for plotting (CSV, Excel)"
+  - label: "Artifacts"
+    value: "Small files stored in MongoDB (&lt; 50MB)"
+  - label: "Raw data"
+    value: "Large files sent to MinIO or local storage"
+
+batch_sending:
+  description: "Send multiple experiments at once when they share the same folder structure. Configure one experiment, enable batch mode, and all sibling folders will be processed."
+  example: |
+    Parent folder/
+    ├── 2023-04-17_Experiment1/
+    │   ├── config.json
+    │   ├── results.csv
+    │   └── raw_data/
+    │       └── video.tiff
+    │
+    └── 2023-04-17_Experiment2/
+        ├── config.json
+        ├── results.csv
+        └── raw_data/
+            └── video.tiff
+
+viewing_results:
+  - label: "Config"
+    value: "Omniboard → <strong>Config</strong> tab"
+  - label: "Results"
+    value: "Omniboard → <strong>Run Info</strong> → result"
+  - label: "Metrics"
+    value: "Omniboard → <strong>Metrics plot</strong>"
+  - label: "Artifacts"
+    value: "Omniboard → <strong>Artifacts</strong>"
+  - label: "Raw data"
+    value: "Omniboard → <strong>Run Info</strong> → dataFiles"
+
+related_tools:
+  - icon: "fa-solid fa-tv"
+    title: "AltarViewer"
+    description: "Launch Omniboard and explore your uploaded experiments."
+    link: "viewer"
+  - icon: "fa-solid fa-magnifying-glass-chart"
+    title: "AltarExtractor"
+    description: "Browse and filter Sacred experiments with a modern web UI."
+    link: "extractor"

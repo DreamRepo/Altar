@@ -1,0 +1,210 @@
+---
+layout: default
+header_class: app-header
+---
+{% assign data = site.data[page.data_file] %}
+
+<!-- HERO -->
+<section class="hero app-hero">
+  <div class="hero-content">
+    <div class="app-badge"><i class="{{ data.hero.icon }}"></i></div>
+    <h1>{{ data.hero.title }}</h1>
+    <p class="subtitle">{{ data.hero.subtitle }}</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="{{ data.hero.primary_cta.link }}">{{ data.hero.primary_cta.text }}</a>
+      <a class="btn btn-secondary" href="{{ data.hero.secondary_cta.link }}">{{ data.hero.secondary_cta.text }}</a>
+      {% if data.hero.tertiary_cta %}
+      <a class="btn btn-secondary" href="{{ data.hero.tertiary_cta.link }}">{{ data.hero.tertiary_cta.text }}</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+  </div>
+</section>
+
+<!-- APP SCREENSHOT (optional) -->
+{% if data.hero.image %}
+<section class="section">
+  <div class="app-screenshot">
+    <img src="{{ data.hero.image }}" alt="{{ data.hero.title }} screenshot" style="max-width: 600px; display: block; margin: 0 auto;" />
+  </div>
+</section>
+{% endif %}
+
+<main>
+  <!-- FEATURES -->
+  <section id="features" class="section alt">
+    <h2 class="section-title">Features</h2>
+    <div class="feature-grid">
+      {% for feature in data.features %}
+      <div class="feature-item">
+        <div class="feature-icon"><i class="{{ feature.icon }}"></i></div>
+        <h4>{{ feature.title }}</h4>
+        <p>{{ feature.description }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- REQUIREMENTS (optional) -->
+  {% if data.requirements and data.requirements.items %}
+  <section class="section">
+    <h2 class="section-title">{{ data.requirements.title | default: "Requirements" }}</h2>
+    <div class="info-table">
+      {% for pair in data.requirements.items %}
+      {% assign item = pair[1] %}
+      <div class="info-row">
+        <span class="info-label">{{ item.title }}</span>
+        <span class="info-value">{{ item.description }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- QUICK START -->
+  {% if data.quick_start %}
+  <section id="quick-start" class="section">
+    <h2 class="section-title">Quick start</h2>
+    <div class="steps vertical-steps">
+      {% for step in data.quick_start %}
+      <div class="step">
+        <div class="step-num">{{ forloop.index }}</div>
+        <div class="step-body">
+          <h4>{{ step.title }}</h4>
+          {% if step.code %}
+          <pre class="code-block"><code>{{ step.code }}</code></pre>
+          {% endif %}
+          {% if step.content %}
+          <p>{{ step.content }}</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- FILE CATEGORIES -->
+  {% if data.file_categories %}
+  <section class="section alt">
+    <h2 class="section-title">File categories</h2>
+    <div class="info-table">
+      {% for item in data.file_categories %}
+      <div class="info-row">
+        <span class="info-label">{{ item.label }}</span>
+        <span class="info-value">{{ item.value }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- BATCH SENDING -->
+  {% if data.batch_sending %}
+  <section class="section">
+    <h2 class="section-title">Batch sending</h2>
+    <p class="lead">{{ data.batch_sending.description }}</p>
+    <pre class="code-block"><code>{{ data.batch_sending.example }}</code></pre>
+  </section>
+  {% endif %}
+
+  <!-- DEFAULT URLS (optional) -->
+  {% if data.default_urls %}
+  <section class="section alt">
+    <h2 class="section-title">Default URLs</h2>
+    <div class="info-table">
+      {% for item in data.default_urls %}
+      <div class="info-row">
+        <span class="info-label">{{ item.label }}</span>
+        <span class="info-value">{{ item.value }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- FEATURES LIST (optional) -->
+  {% if data.features_list %}
+  <section class="section">
+    <h2 class="section-title">{{ data.features_list.title }}</h2>
+    <ul class="benefits">
+      {% for item in data.features_list.items %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <!-- ENVIRONMENT VARIABLES (optional) -->
+  {% if data.environment_vars %}
+  <section class="section alt">
+    <h2 class="section-title">Environment variables</h2>
+    <div class="info-table">
+      {% for item in data.environment_vars %}
+      <div class="info-row">
+        <span class="info-label">{{ item.label }}</span>
+        <span class="info-value">{{ item.value }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- VIEWING RESULTS (optional) -->
+  {% if data.viewing_results %}
+  <section class="section alt">
+    <h2 class="section-title">Viewing results</h2>
+    <div class="info-table">
+      {% for item in data.viewing_results %}
+      <div class="info-row">
+        <span class="info-label">{{ item.label }}</span>
+        <span class="info-value">{{ item.value }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- RELATED TOOLS -->
+  <section class="section">
+    <h2 class="section-title">Related tools</h2>
+    <div class="cards">
+      {% for tool in data.related_tools %}
+      <article class="card">
+        <div class="card-icon" aria-hidden="true"><i class="{{ tool.icon }}"></i></div>
+        <h3>{{ tool.title }}</h3>
+        <p>{{ tool.description }}</p>
+        <div class="card-actions">
+          <a class="btn btn-link" href="{{ tool.link | relative_url }}">Learn more →</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- FULL README (optional) -->
+  {% if page.readme_path %}
+  <section id="full-documentation" class="section alt">
+    <h2 class="section-title">Full Documentation</h2>
+    <div class="readme-content">
+      {% include submodule_readme.html path=page.readme_path %}
+    </div>
+  </section>
+  {% endif %}
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="foot-left">
+      <a href="{{ '/' | relative_url }}">← Back to Altar</a>
+    </div>
+    <div class="foot-right">
+      <a href="{{ page.github_url }}">Source</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="{{ page.github_url }}/blob/main/LICENSE">License (GPL‑3.0)</a>
+    </div>
+  </div>
+</footer>

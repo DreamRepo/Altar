@@ -1,103 +1,112 @@
-## Altar — Experiment Data Management
+# Altar — Developer Guide
 
-A monorepo of small tools and deployment configs to manage experiment data end‑to‑end:
-- MongoDB (Sacred) for experiment metadata
-- MinIO (S3-compatible) for raw/heavy files
-- Omniboard for visualization
-- AltarExtractor for browsing and filtering Sacred experiments
-- Desktop utility for sending experiments to Sacred/MinIO
+Experiment data management tools based on Sacred infrastructure.
 
-### Repository structure
+**🌐 User Documentation**: [https://dreamrepo.github.io/Altar/](https://dreamrepo.github.io/Altar/)
+
+## Repository Structure
 
 ```
 Altar/
-├─ AltarDocker/      # Docker Compose: MongoDB, MinIO, Omniboard, Extractor + docs
-├─ AltarExtractor/   # Dash app to browse, filter, and export Sacred experiments
-├─ AltarSender/      # GUI to send experiments to Sacred (+ MinIO artifacts/raw data)
-├─ assets/           # Website assets
-├─ index.html        # Landing page
-└─ README.md
+├── AltarDocker/      # Docker stack: MongoDB, MinIO, Omniboard
+├── AltarExtractor/   # Dash app to browse Sacred experiments
+├── AltarSender/      # GUI to send experiments to MongoDB/MinIO
+├── AltarViewer/      # Launch Omniboard instances
+├── _data/            # Website YAML content
+├── _layouts/         # Jekyll templates
+└── assets/           # CSS/JS for docs site
 ```
 
-### Subprojects
+## Development Setup
 
-- **AltarDocker**: Local stack for MongoDB + MinIO + Omniboard + AltarExtractor
-  - What it provides: a reproducible local/dev environment to store and visualize experiments.
-  - Start here if you need a database and storage running locally.
-  - Docs:
-    - Deployment: `AltarDocker/DEPLOY.md`
-    - User management: `AltarDocker/MANAGE_USERS.md`
-    - Compose file: `AltarDocker/docker-compose.yml`
+### Deploy Local Stack
 
-- **AltarExtractor**: Dash web app for browsing Sacred experiments
-  - What it does: connect to MongoDB, browse Sacred runs, filter by config keys, view metrics, and export data as CSV or explore in Pygwalker.
-  - Can run standalone or as part of AltarDocker (via `--profile extractor`).
-  - Get started: `pip install -r requirements.txt`, run `python app.py`, or use Docker.
-  - Docs: `AltarExtractor/README.md`
+```bash
+cd AltarDocker
+cp .env.example .env  # Edit with your credentials
+docker compose up -d
+```
 
-- **AltarSender**: GUI to send experiments to Sacred (and MinIO)
-  - What it does: select per-experiment folders, map files (config/results/metrics/artifacts/raw data), then send to MongoDB Sacred and optionally MinIO or a filesystem path.
-  - Get started: create/activate a virtual env, `pip install -r requirements.txt`, run `python app.py`.
-  - Docs: `AltarSender/README.md`
+Access: MongoDB (27017), MinIO Console (9001), Omniboard (9015)
 
-### Quick start
+### Run Components
 
-1. **Run the local stack** (MongoDB + Omniboard):
-   ```bash
-   cd AltarDocker
-   # Edit .env with your credentials
-   docker compose up -d
-   ```
+```bash
+# AltarExtractor
+cd AltarExtractor
+pip install -r requirements.txt
+python app.py
 
-2. **Add the Extractor** (optional):
-   ```bash
-   docker compose --profile extractor up -d
-   ```
-   Then open http://localhost:8050 and connect to MongoDB (host: `mongo`, port: `27017`).
+# AltarSender
+cd AltarSender
+pip install -r requirements.txt
+python app.py
 
-3. **Add MinIO** (optional):
-   ```bash
-   docker compose --profile minio up -d
-   ```
+# AltarViewer
+cd AltarViewer
+pip install -r requirements.txt
+python src/main.py
+```
 
-4. **Send experiments**:
-   Use `AltarSender` → `python app.py` and configure sources (config/results/metrics/artifacts/raw data).
+## Documentation Website
 
-### URLs (default)
+### Local Preview
 
-| Service        | URL                      |
-|----------------|--------------------------|
-| MongoDB        | mongodb://localhost:27017 |
-| Omniboard      | http://localhost:9004    |
-| AltarExtractor | http://localhost:8050    |
-| MinIO Console  | http://localhost:9001    |
-| MinIO S3 API   | http://localhost:9000    |
+```bash
+# Install Jekyll (requires Ruby)
+gem install bundler jekyll
 
-### Requirements
+# Serve locally
+bundle install
+bundle exec jekyll serve
+```
 
-- Python 3.x (recommended: use a virtual environment)
-- pip for Python dependencies
-- Docker Desktop (Windows/macOS) or Docker Engine + Compose (Linux) to run the local data stack
+Visit: http://localhost:4000
 
-### Useful links
+### Edit Content
 
-- Deployment: `AltarDocker/DEPLOY.md`
-- Manage users and access: `AltarDocker/MANAGE_USERS.md`
-- Experiment sender docs: `AltarSender/README.md`
-- Extractor docs: `AltarExtractor/README.md`
+Edit YAML files in `_data/`:
+- `_data/index.yml` - Home page
+- `_data/docker.yml` - AltarDocker docs
+- `_data/extractor.yml` - AltarExtractor docs
+- `_data/sender.yml` - AltarSender docs
+- `_data/viewer.yml` - AltarViewer docs
 
-### Notes
+See [DOCS.md](DOCS.md) for detailed editing instructions.
 
-- Credentials and endpoints for MongoDB/MinIO are configured in the Docker `.env` file.
-- Omniboard connects to your MongoDB to visualize runs and artifacts; ensure its connection string matches your database/auth setup.
-- AltarExtractor can save MongoDB credentials in browser local storage for convenience.
+### Deploy
 
-### Related Projects
+Push to `main` branch - GitHub Pages auto-builds and deploys.
 
-- [AltarDocker](https://github.com/DreamRepo/AltarDocker) — Docker Compose stack for MongoDB, MinIO, Omniboard, and AltarExtractor
-- [AltarExtractor](https://github.com/DreamRepo/AltarExtractor) — Dash web app to browse and filter Sacred experiments
-- [AltarSender](https://github.com/DreamRepo/AltarSender) — GUI to send experiments to Sacred and MinIO
+## Building Executables
 
-### License
+```bash
+# AltarSender
+cd AltarSender
+pip install -r requirements-dev.txt
+pyinstaller AltarSender.spec
 
-GNU General Public License v3.0. See `LICENSE` at the repository root.
+# AltarViewer
+cd AltarViewer
+pip install -r requirements-dev.txt
+pyinstaller AltarViewer.spec
+```
+
+Outputs in `dist/` directory.
+
+## Testing
+
+```bash
+# AltarViewer
+cd AltarViewer
+pip install -r requirements-dev.txt
+pytest
+
+# AltarExtractor (if tests exist)
+cd AltarExtractor
+pytest
+```
+
+## License
+
+GPL v3

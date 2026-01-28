@@ -1,0 +1,99 @@
+meta:
+  title: "AltarExtractor — Sacred Experiments Browser"
+  description: "Dash web app to browse Sacred experiments, filter by config, view metrics, and export as CSV or explore in Pygwalker."
+
+hero:
+  icon: "fa-solid fa-magnifying-glass-chart"
+  title: "AltarExtractor"
+  subtitle: "A <strong>Dash web app</strong> to browse Sacred experiments, filter by configuration, view metrics, and export datasets as <strong>CSV</strong> or explore in <strong>Pygwalker</strong>."
+  primary_cta:
+    text: "Features"
+    link: "#features"
+  secondary_cta:
+    text: "View source"
+    link: "https://github.com/DreamRepo/AltarExtractor"
+  tertiary_cta:
+    text: "Download Release"
+    link: "https://github.com/DreamRepo/AltarExtractor/releases"
+
+features:
+  - icon: "fa-solid fa-plug"
+    title: "Connect to any MongoDB"
+    description: "Enter credentials or a MongoDB URI. Supports authentication and multiple databases."
+  - icon: "fa-solid fa-filter"
+    title: "Filter by config"
+    description: "Select config keys, filter by boolean, number ranges, or string values."
+  - icon: "fa-solid fa-chart-area"
+    title: "View metrics"
+    description: "Select metrics to see per-step data. Toggle between rows and columns layout."
+  - icon: "fa-solid fa-file-csv"
+    title: "Export as CSV"
+    description: "Download filtered experiments or metrics data as CSV files."
+  - icon: "fa-solid fa-wand-magic-sparkles"
+    title: "Pygwalker integration"
+    description: "Open datasets in Pygwalker for interactive data exploration and visualization."
+  - icon: "fa-solid fa-floppy-disk"
+    title: "Save credentials"
+    description: "Store connection settings in browser localStorage for quick reconnection."
+
+requirements:
+  title: "What you need"
+  items:
+    mongodb:
+      title: "MongoDB with Sacred Data"
+      icon: "fa-solid fa-database"
+      description: "A MongoDB instance containing Sacred experiments. Any deployment works (local, server, or managed)."
+    
+    incense:
+      title: "Incense (for scripts)"
+      icon: "fa-solid fa-code"
+      description: "If you prefer Python scripts over the web UI, use Incense to query experiments programmatically."
+      link: "https://github.com/JarnoRFB/incense"
+      link_text: "View on GitHub"
+    
+    pygwalker:
+      title: "PyGWalker Understanding"
+      icon: "fa-solid fa-chart-simple"
+      description: "AltarExtractor uses PyGWalker for interactive visualization. Knowing its features enhances your data exploration."
+      link: "https://docs.kanaries.net/pygwalker"
+      link_text: "Read Docs"
+
+quick_start:
+  - title: "Option A: From Binary Release (no setup)"
+    code: |
+      # Download the latest release for your OS:
+      # https://github.com/DreamRepo/AltarExtractor/releases
+
+      # Windows
+      # 1) Download and unzip the asset
+      # 2) Double-click AltarExtractor.exe
+
+      # Linux/macOS
+      chmod +x ./AltarExtractor   # may already be executable
+      ./AltarExtractor
+    content: "The app starts a local server at <code>http://localhost:8050</code> and opens your browser."
+  - title: "Option B: From Source (virtual environment)"
+    code: |
+      cd AltarExtractor
+      python -m venv .venv
+      .venv\Scripts\activate  # Windows
+      pip install -r requirements.txt
+      python app.py
+    content: "Open <code>http://localhost:8050</code> in your browser."
+  - title: "Option C: Using Docker"
+    code: |
+      cd AltarExtractor
+      docker-compose up -d --build
+    content: "Open <code>http://localhost:8050</code>. Connect with your MongoDB instance."
+  - title: "Connect to MongoDB"
+    content: "Enter your MongoDB credentials or paste a full URI. Click <strong>Connect</strong> to start browsing experiments."
+
+related_tools:
+  - icon: "fa-solid fa-tv"
+    title: "AltarViewer"
+    description: "Launch Omniboard and visualize your Sacred experiments in the browser."
+    link: "viewer"
+  - icon: "fa-solid fa-paper-plane"
+    title: "AltarSender"
+    description: "Map experiment folders and send runs to MongoDB in a Sacred‑compatible format; optional artifacts to MinIO."
+    link: "sender"

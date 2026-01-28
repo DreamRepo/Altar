@@ -1,0 +1,16 @@
+meta:
+  title: "AltarDocker — Deploy"
+  description: "Developer guide: deployment with Docker Compose."
+
+hero:
+  icon: "fa-solid fa-cubes"
+  title: "Deploy"
+  subtitle: "How to deploy Altar services using Docker Compose."
+  primary_cta:
+    text: "Read docs"
+    link: "#full-documentation"
+  secondary_cta:
+    text: "View source"
+    link: "https://github.com/DreamRepo/AltarDocker"
+
+# Intentionally minimal — page will render the submodule markdown only.

@@ -1,0 +1,7 @@
+{% comment %}
+  Include to render README from submodule directories
+  Usage: {% include submodule_readme.html path="AltarSender/README.md" %}
+{% endcomment %}
+
+{% capture readme_content %}{% include_relative {{ include.path }} %}{% endcapture %}
+{{ readme_content | markdownify }}

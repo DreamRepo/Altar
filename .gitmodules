@@ -7,3 +7,6 @@
 [submodule "AltarSender"]
 	path = AltarSender
 	url = https://github.com/DreamRepo/AltarSender.git
+[submodule "AltarViewer"]
+	path = AltarViewer
+	url = https://github.com/DreamRepo/AltarViewer
