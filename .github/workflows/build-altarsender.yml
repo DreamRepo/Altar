@@ -1,26 +1,27 @@
-name: Build and Release
+name: Build AltarSender
 
 on:
   push:
     branches:
       - main
     tags:
-      - 'v*'
-    paths-ignore:
-      - '**.md'
-      - 'LICENSE'
-      - '.gitignore'
+      - 'altarsender-v*'
+    paths:
+      - 'AltarSender/**'
+      - '.github/workflows/build-altarsender.yml'
   pull_request:
     branches:
       - main
-    paths-ignore:
-      - '**.md'
-      - 'LICENSE'
-      - '.gitignore'
+    paths:
+      - 'AltarSender/**'
   workflow_dispatch:
 
 permissions:
   contents: write
+
+defaults:
+  run:
+    working-directory: AltarSender
 
 jobs:
   build-windows:
@@ -81,7 +82,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: AltarSender-Windows
-        path: dist/AltarSender.exe
+        path: AltarSender/dist/AltarSender.exe
 
   build-macos:
     runs-on: macos-latest
@@ -144,7 +145,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: AltarSender-macOS
-        path: dist/AltarSender
+        path: AltarSender/dist/AltarSender
 
   build-linux:
     runs-on: ubuntu-latest
@@ -210,10 +211,10 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: AltarSender-Linux
-        path: dist/AltarSender
+        path: AltarSender/dist/AltarSender
 
   release:
-    if: startsWith(github.ref, 'refs/tags/')
+    if: startsWith(github.ref, 'refs/tags/altarsender-v')
     needs: [build-windows, build-macos, build-linux]
     runs-on: ubuntu-latest
     
@@ -240,6 +241,7 @@ jobs:
       run: |
         mv ./macos/AltarSender ./macos/AltarSender-macOS
         mv ./linux/AltarSender ./linux/AltarSender-Linux
+      working-directory: .
     
     - name: Create Release
       uses: softprops/action-gh-release@v1
