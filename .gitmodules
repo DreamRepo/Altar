@@ -1,9 +1,6 @@
 [submodule "AltarExtractor"]
 	path = AltarExtractor
 	url = https://github.com/DreamRepo/AltarExtractor.git
-[submodule "AltarSender"]
-	path = AltarSender
-	url = https://github.com/DreamRepo/AltarSender.git
 [submodule "AltarViewer"]
 	path = AltarViewer
 	url = https://github.com/DreamRepo/AltarViewer
