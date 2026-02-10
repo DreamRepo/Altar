@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  altar-extractor:
+    # For local build:
+    # build: .
+    # For Docker Hub image (replace YOUR_DOCKERHUB_USERNAME):
+    image: YOUR_DOCKERHUB_USERNAME/altar-extractor:latest
+    container_name: altar-extractor
+    ports:
+      - "8050:8050"
+    environment:
+      - PORT=8050
+      - DEBUG=false
+      # Optionally set a default database name
+      # - SACRED_DB_NAME=sacred
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8050/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
