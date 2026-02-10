@@ -1,0 +1,6 @@
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Build tools
+pyinstaller>=5.0.0

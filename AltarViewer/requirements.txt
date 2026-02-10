@@ -1,0 +1,5 @@
+customtkinter==5.2.2
+pymongo>=4.0.0
+dnspython>=2.3.0
+keyring>=23.0.0
+platformdirs>=3.0.0
