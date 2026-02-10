@@ -1,0 +1,96 @@
+name: Build Executables
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            artifact_name: AltarSender.exe
+            asset_name: AltarSender-Windows.exe
+            path_sep: ";"
+          - os: ubuntu-latest
+            artifact_name: AltarSender
+            asset_name: AltarSender-Linux
+            path_sep: ":"
+          - os: macos-latest
+            artifact_name: AltarSender
+            asset_name: AltarSender-macOS
+            path_sep: ":"
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      # Linux: Install Tk dependencies
+      - name: Install Tk dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-tk
+
+      # macOS: Install Tk via Homebrew if needed
+      - name: Install Tk dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install python-tk@3.11 || true
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build executable with PyInstaller
+        shell: bash
+        run: |
+          # Find customtkinter location dynamically
+          CTK_PATH=$(python -c "import customtkinter; import os; print(os.path.dirname(customtkinter.__file__))")
+          
+          pyinstaller --noconfirm --onefile --windowed \
+            --name "AltarSender" \
+            --add-data "${CTK_PATH}${{ matrix.path_sep }}customtkinter" \
+            --hidden-import=customtkinter \
+            --hidden-import=sacred \
+            --hidden-import=sacred.observers \
+            --hidden-import=pymongo \
+            --hidden-import=pandas \
+            --hidden-import=numpy \
+            --hidden-import=openpyxl \
+            --hidden-import=boto3 \
+            --hidden-import=botocore \
+            --hidden-import=minio \
+            --hidden-import=PIL \
+            --hidden-import=PIL._tkinter_finder \
+            --collect-all=customtkinter \
+            --collect-all=sacred \
+            app.py
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset_name }}
+          path: dist/${{ matrix.artifact_name }}
+          retention-days: 30
+
+      - name: Upload to GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/${{ matrix.artifact_name }}

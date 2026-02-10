@@ -1,0 +1,38 @@
+experiment:
+  name: Experiment1
+  description: Sample experiment with YAML configuration
+  duration:
+    time: 3200
+    unit: seconds
+
+instrument:
+  type: microscope
+  magnification: 40x
+  resolution:
+    width: 1920
+    height: 1080
+
+parameters:
+  temperature: 25.5
+  pressure: 1.013
+  humidity: 45
+
+sample:
+  id: SAMPLE_001
+  type: tissue
+  preparation: frozen_section
+
+acquisition:
+  framerate: 30
+  exposure_ms: 50
+  channels:
+    - name: DAPI
+      wavelength: 405
+    - name: GFP
+      wavelength: 488
+    - name: RFP
+      wavelength: 561
+
+
+
+

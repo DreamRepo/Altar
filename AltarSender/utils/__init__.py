@@ -1,0 +1,2 @@
+# AltarSender utils package
+
