@@ -1,0 +1,113 @@
+# =============================================================================
+# ALTAR DOCKER COMPOSE
+# =============================================================================
+# This file defines all services for the Altar experiment tracking platform.
+#
+# USAGE:
+#   docker compose up -d                 # Start all services in background
+#   docker compose --profile minio up -d # Start with MinIO storage
+#   docker compose logs -f               # Follow logs of all services
+#   docker compose ps                    # List running containers
+#
+# STOP SERVICES:
+#   docker compose down                  # Stop and remove containers (keeps data)
+#   docker compose down -v               # Stop and remove containers + volumes
+#
+# REMOVE EVERYTHING (including data):
+#   docker compose down -v --rmi all     # Remove containers, volumes, and images
+#   rm -rf ./data                        # Delete local data folders (mongo, minio)
+#
+# CONNECTION INFO (from inside containers):
+#   MongoDB: mongodb://admin:changeme123@mongo:27017/sacred?authSource=admin
+#   MinIO:   http://minio:9000
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # MongoDB - Database for storing Sacred experiment data
+  # ---------------------------------------------------------------------------
+  # Stores experiment metrics, configurations, and artifacts metadata.
+  # Access: localhost:27017 (from host) or mongo:27017 (from containers)
+  mongo:
+    image: mongo:6
+    container_name: mongo_altar
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER:-admin}      # Admin username
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-changeme123}  # Admin password
+      MONGO_INITDB_DATABASE: ${MONGO_DB:-sacred}                 # Default database
+    ports:
+      - "${MONGO_PORT:-27017}:27017"
+    volumes:
+      - ${MONGO_DATA_PATH:-./data/mongo}:/data/db  # Persistent data storage
+
+  # ---------------------------------------------------------------------------
+  # MinIO - S3-compatible object storage (OPTIONAL)
+  # ---------------------------------------------------------------------------
+  # Use for storing large artifacts (models, datasets, etc.)
+  # Only starts with: docker compose --profile minio up
+  # Console: http://localhost:9001 | API: http://localhost:9000
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: minio_altar
+    restart: unless-stopped
+    profiles:
+      - minio  # Only starts when explicitly requested
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minio_admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-changeme123}
+    ports:
+      - "${MINIO_S3_PORT:-9000}:9000"      # S3 API
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"  # Web console
+    volumes:
+      - ${MINIO_DATA_PATH:-./data/minio}:/data
+
+  # ---------------------------------------------------------------------------
+  # Altar Extractor - Dash app for extracting experiment data
+  # ---------------------------------------------------------------------------
+  # Web interface for browsing and extracting experiment results.
+  # Access: http://localhost:8050
+  altar-extractor:
+    image: wgaulti/altar-extractor
+    container_name: altar_extractor
+    restart: unless-stopped
+    ports:
+      - "${EXTRACTOR_PORT:-8050}:8050"
+
+  # ---------------------------------------------------------------------------
+  # Omniboard - Web dashboard for Sacred experiments
+  # ---------------------------------------------------------------------------
+  # Visualize and compare experiments with an interactive UI.
+  # Access: http://localhost:9004
+  omniboard:
+    image: vivekratnavel/omniboard:latest
+    container_name: omniboard
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    ports:
+      - "${OMNIBOARD_HOST_PORT:-9004}:9000"
+    command: [
+      "--mu",
+      "mongodb://${MONGO_ROOT_USER:-admin}:${MONGO_ROOT_PASSWORD:-changeme123}@mongo:27017/${OMNIBOARD_DB:-sacred}?authSource=admin&authMechanism=SCRAM-SHA-1"
+    ]
+
+  # ---------------------------------------------------------------------------
+  # Omniboard 2 - Second instance for a different database (DISABLED)
+  # ---------------------------------------------------------------------------
+  # Uncomment to run a second Omniboard instance on a different database.
+  # Access: http://localhost:9003
+  # omniboard2:
+  #   image: vivekratnavel/omniboard:latest
+  #   container_name: omniboard2
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - mongo
+  #   ports:
+  #     - "${OMNIBOARD_HOST_PORT_2:-9003}:9000"
+  #   command: [
+  #     "--mu",
+  #     "mongodb://${MONGO_ROOT_USER:-admin}:${MONGO_ROOT_PASSWORD:-change_me}@mongo:27017/${OMNIBOARD2_DB:-test}?authSource=admin&authMechanism=SCRAM-SHA-1"
+  #   ]

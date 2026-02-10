@@ -1,0 +1,53 @@
+name: Validate Docker Compose
+
+on:
+  push:
+    branches: [ main, no_credentials ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-compose:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Validate docker-compose.yml syntax
+        run: |
+          docker compose -f docker-compose.yml config > /dev/null
+          echo "✅ docker-compose.yml is valid"
+
+      - name: Check .env.example has all required variables
+        run: |
+          echo "Checking required variables in .env.example..."
+          grep -q "MONGO_DB=" .env.example || (echo "❌ Missing MONGO_DB" && exit 1)
+          grep -q "MONGO_PORT=" .env.example || (echo "❌ Missing MONGO_PORT" && exit 1)
+          grep -q "MINIO_ROOT_USER=" .env.example || (echo "❌ Missing MINIO_ROOT_USER" && exit 1)
+          grep -q "MINIO_ROOT_PASSWORD=" .env.example || (echo "❌ Missing MINIO_ROOT_PASSWORD" && exit 1)
+          grep -q "MONGO_DATA_PATH=" .env.example || (echo "❌ Missing MONGO_DATA_PATH" && exit 1)
+          grep -q "MINIO_DATA_PATH=" .env.example || (echo "❌ Missing MINIO_DATA_PATH" && exit 1)
+          echo "✅ All required variables present"
+
+      - name: Test docker-compose.yml with defaults (no .env)
+        run: |
+          # Test without .env file to verify defaults work
+          docker compose -f docker-compose.yml up --dry-run mongo
+          echo "✅ docker-compose.yml works with defaults (no .env)"
+
+      - name: Test docker-compose.yml with .env overrides
+        run: |
+          cp .env.example .env
+          # Test all services
+          docker compose -f docker-compose.yml up --dry-run
+          echo "✅ docker-compose.yml all services with .env valid"
+
+      - name: Pull Docker images to verify they exist
+        run: |
+          docker pull mongo:6
+          docker pull quay.io/minio/minio:latest
+          echo "✅ All Docker images are accessible"
