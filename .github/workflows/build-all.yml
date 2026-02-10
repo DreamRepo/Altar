@@ -1,0 +1,308 @@
+name: Build All Apps
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  # ============== AltarSender ==============
+  build-altarsender-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: AltarSender
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+    - name: Build
+      shell: bash
+      run: |
+        CTK_PATH=$(python -c "import customtkinter; import os; print(os.path.dirname(customtkinter.__file__))")
+        pyinstaller --noconfirm --onefile --windowed --name "AltarSender" --paths "." \
+          --add-data "${CTK_PATH};customtkinter" \
+          --hidden-import=services.experiment_sender --hidden-import=services.format_content \
+          --hidden-import=services.hash --hidden-import=services.mongo_conn \
+          --hidden-import=services.prefs --hidden-import=services.raw_data_saver \
+          --hidden-import=ui.app_view --hidden-import=ui.experiment_view \
+          --hidden-import=ui.mongo_view --hidden-import=ui.minio_view \
+          --hidden-import=customtkinter --hidden-import=sacred --hidden-import=sacred.observers \
+          --hidden-import=pymongo --hidden-import=pandas --hidden-import=numpy \
+          --hidden-import=openpyxl --hidden-import=boto3 --hidden-import=botocore \
+          --hidden-import=minio --hidden-import=PIL --hidden-import=PIL._tkinter_finder \
+          --hidden-import=yaml --collect-all=customtkinter --collect-all=sacred app.py
+    - uses: actions/upload-artifact@v4
+      with:
+        name: AltarSender-Windows
+        path: AltarSender/dist/AltarSender.exe
+
+  build-altarsender-macos:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: AltarSender
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - run: brew install python-tk@3.11 || true
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+    - name: Build
+      run: |
+        CTK_PATH=$(python -c "import customtkinter; import os; print(os.path.dirname(customtkinter.__file__))")
+        pyinstaller --noconfirm --onefile --windowed --name "AltarSender" --paths "." \
+          --add-data "${CTK_PATH}:customtkinter" \
+          --hidden-import=services.experiment_sender --hidden-import=services.format_content \
+          --hidden-import=services.hash --hidden-import=services.mongo_conn \
+          --hidden-import=services.prefs --hidden-import=services.raw_data_saver \
+          --hidden-import=ui.app_view --hidden-import=ui.experiment_view \
+          --hidden-import=ui.mongo_view --hidden-import=ui.minio_view \
+          --hidden-import=customtkinter --hidden-import=sacred --hidden-import=sacred.observers \
+          --hidden-import=pymongo --hidden-import=pandas --hidden-import=numpy \
+          --hidden-import=openpyxl --hidden-import=boto3 --hidden-import=botocore \
+          --hidden-import=minio --hidden-import=PIL --hidden-import=PIL._tkinter_finder \
+          --hidden-import=yaml --collect-all=customtkinter --collect-all=sacred app.py
+    - uses: actions/upload-artifact@v4
+      with:
+        name: AltarSender-macOS
+        path: AltarSender/dist/AltarSender
+
+  build-altarsender-linux:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: AltarSender
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - run: sudo apt-get update && sudo apt-get install -y python3-tk
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+    - name: Build
+      run: |
+        CTK_PATH=$(python -c "import customtkinter; import os; print(os.path.dirname(customtkinter.__file__))")
+        pyinstaller --noconfirm --onefile --console --name "AltarSender" --paths "." \
+          --add-data "${CTK_PATH}:customtkinter" \
+          --hidden-import=services.experiment_sender --hidden-import=services.format_content \
+          --hidden-import=services.hash --hidden-import=services.mongo_conn \
+          --hidden-import=services.prefs --hidden-import=services.raw_data_saver \
+          --hidden-import=ui.app_view --hidden-import=ui.experiment_view \
+          --hidden-import=ui.mongo_view --hidden-import=ui.minio_view \
+          --hidden-import=customtkinter --hidden-import=sacred --hidden-import=sacred.observers \
+          --hidden-import=pymongo --hidden-import=pandas --hidden-import=numpy \
+          --hidden-import=openpyxl --hidden-import=boto3 --hidden-import=botocore \
+          --hidden-import=minio --hidden-import=PIL --hidden-import=PIL._tkinter_finder \
+          --hidden-import=yaml --collect-all=customtkinter --collect-all=sacred app.py
+        chmod +x dist/AltarSender
+    - uses: actions/upload-artifact@v4
+      with:
+        name: AltarSender-Linux
+        path: AltarSender/dist/AltarSender
+
+  # ============== AltarExtractor ==============
+  build-altarextractor-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: AltarExtractor
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+    - run: pyinstaller AltarExtractor.spec
+    - uses: actions/upload-artifact@v4
+      with:
+        name: AltarExtractor-Windows
+        path: AltarExtractor/dist/AltarExtractor.exe
+
+  build-altarextractor-macos:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: AltarExtractor
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+    - run: pyinstaller AltarExtractor.spec
+    - uses: actions/upload-artifact@v4
+      with:
+        name: AltarExtractor-macOS
+        path: AltarExtractor/dist/AltarExtractor
+
+  build-altarextractor-linux:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: AltarExtractor
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - run: sudo apt-get update && sudo apt-get install -y python3-tk
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+    - run: pyinstaller AltarExtractor.spec
+    - uses: actions/upload-artifact@v4
+      with:
+        name: AltarExtractor-Linux
+        path: AltarExtractor/dist/AltarExtractor
+
+  # ============== AltarViewer ==============
+  build-altarviewer-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: AltarViewer
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+    - run: pyinstaller AltarViewer.spec
+    - uses: actions/upload-artifact@v4
+      with:
+        name: AltarViewer-Windows
+        path: AltarViewer/dist/AltarViewer.exe
+
+  build-altarviewer-macos:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: AltarViewer
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - run: brew install python-tk@3.11 || true
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+    - run: pyinstaller AltarViewer.spec
+    - uses: actions/upload-artifact@v4
+      with:
+        name: AltarViewer-macOS
+        path: AltarViewer/dist/AltarViewer
+
+  build-altarviewer-linux:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: AltarViewer
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - run: sudo apt-get update && sudo apt-get install -y python3-tk
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+    - run: pyinstaller AltarViewer.spec
+    - uses: actions/upload-artifact@v4
+      with:
+        name: AltarViewer-Linux
+        path: AltarViewer/dist/AltarViewer
+
+  # ============== Release ==============
+  release:
+    needs: 
+      - build-altarsender-windows
+      - build-altarsender-macos
+      - build-altarsender-linux
+      - build-altarextractor-windows
+      - build-altarextractor-macos
+      - build-altarextractor-linux
+      - build-altarviewer-windows
+      - build-altarviewer-macos
+      - build-altarviewer-linux
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: ./artifacts
+
+    - name: Prepare release files
+      run: |
+        mkdir -p release
+        # AltarSender
+        cp ./artifacts/AltarSender-Windows/AltarSender.exe ./release/AltarSender-Windows.exe
+        cp ./artifacts/AltarSender-macOS/AltarSender ./release/AltarSender-macOS
+        cp ./artifacts/AltarSender-Linux/AltarSender ./release/AltarSender-Linux
+        # AltarExtractor
+        cp ./artifacts/AltarExtractor-Windows/AltarExtractor.exe ./release/AltarExtractor-Windows.exe
+        cp ./artifacts/AltarExtractor-macOS/AltarExtractor ./release/AltarExtractor-macOS
+        cp ./artifacts/AltarExtractor-Linux/AltarExtractor ./release/AltarExtractor-Linux
+        # AltarViewer
+        cp ./artifacts/AltarViewer-Windows/AltarViewer.exe ./release/AltarViewer-Windows.exe
+        cp ./artifacts/AltarViewer-macOS/AltarViewer ./release/AltarViewer-macOS
+        cp ./artifacts/AltarViewer-Linux/AltarViewer ./release/AltarViewer-Linux
+        
+        chmod +x ./release/*-macOS ./release/*-Linux
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ./release/*
+        draft: true
+        prerelease: false
+        body: |
+          ## Altar Suite ${{ github.ref_name }}
+          
+          ### Downloads
+          
+          | App | Windows | macOS | Linux |
+          |-----|---------|-------|-------|
+          | **AltarSender** | [Download](AltarSender-Windows.exe) | [Download](AltarSender-macOS) | [Download](AltarSender-Linux) |
+          | **AltarExtractor** | [Download](AltarExtractor-Windows.exe) | [Download](AltarExtractor-macOS) | [Download](AltarExtractor-Linux) |
+          | **AltarViewer** | [Download](AltarViewer-Windows.exe) | [Download](AltarViewer-macOS) | [Download](AltarViewer-Linux) |
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
