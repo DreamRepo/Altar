@@ -11,6 +11,6 @@ hero:
     link: "#full-documentation"
   secondary_cta:
     text: "View source"
-    link: "https://github.com/DreamRepo/AltarDocker"
+    link: "https://github.com/DreamRepo/Altar"
 
 # Intentionally minimal — page will render the submodule markdown only.

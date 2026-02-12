@@ -1,16 +1,16 @@
 # AltarSender — Experiment Sender to Sacred
 
 
-![Send from folder — overview](https://raw.githubusercontent.com/DreamRepo/AltarSender/refs/heads/main/assets/send_from_folder.png)
+![Send from folder — overview](https://raw.githubusercontent.com/DreamRepo/Altar/refs/heads/main/AltarSender/assets/send_from_folder.png)
 
 
-[➡️ Download the latest release](https://github.com/DreamRepo/AltarSender/releases) for Windows, macOS, or Linux.
+> Note: AltarSender is part of the Altar monorepo. You can either download a prebuilt executable from the monorepo releases or build and run from source.
 
 A graphical user interface (GUI) built with Python and CustomTkinter to send experiment results to a MongoDB Sacred database. Optionally upload heavy files to MinIO or a local/network file path.
 
 ---
 
-![AltarSender — app screenshot](https://raw.githubusercontent.com/DreamRepo/AltarSender/refs/heads/main/assets/snapshot_app.png)
+![AltarSender — app screenshot](https://raw.githubusercontent.com/DreamRepo/Altar/refs/heads/main/AltarSender/assets/snapshot_app.png)
 
 ## Quick guide: Sacred infrastructure (at a glance)
 
@@ -44,16 +44,16 @@ Tip: MongoDB stores your metadata (config, results, metrics), while MinIO or you
 - **Required:** MongoDB database running (locally or on a server)
 - **Optional:** MinIO server for large file storage
 
-> **Deployment instructions:** See [Altar](dreamrepo.github.io/Altar) for setting up MongoDB and MiniIO.
+> **Deployment instructions:** See [Altar Docs](https://dreamrepo.github.io/Altar/) for setting up MongoDB and MinIO.
 
 ---
 
 ## Setup
 
-1. Clone or download the repository:
+1. Clone or download the monorepo:
    ```bash
-   git clone https://github.com/DreamRepo/AltarSender.git
-   cd AltarSender
+    git clone https://github.com/DreamRepo/Altar.git
+    cd Altar/AltarSender
    ```
 
 2. Create and activate a virtual environment (recommended):
@@ -75,6 +75,26 @@ Tip: MongoDB stores your metadata (config, results, metrics), while MinIO or you
    ```bash
    pip install -r requirements.txt
    ```
+
+### From Binary Release
+
+Prebuilt executables for Windows, macOS, and Linux are attached to the monorepo's Releases.
+
+1) Download
+- Go to the monorepo [Releases](https://github.com/DreamRepo/Altar/releases) page
+- Under the latest release, download the Sender asset for your OS/architecture
+
+2) Run
+- Windows (PowerShell):
+    ```powershell
+    .\AltarSender.exe
+    ```
+
+- macOS/Linux (Terminal):
+    ```bash
+    chmod +x ./AltarSender
+    ./AltarSender
+    ```
 
 ---
 
@@ -354,7 +374,7 @@ The executable will be in the `dist/` folder: `dist/AltarSender.app` (or `dist/A
 
 ## Automated Builds (GitHub Actions)
 
-This repository includes a GitHub Actions workflow that automatically builds executables for **Windows**, **Linux**, and **macOS**.
+This monorepo may include a GitHub Actions workflow to build executables for **Windows**, **Linux**, and **macOS**.
 
 ### Downloading the Latest Build
 
@@ -371,20 +391,9 @@ This repository includes a GitHub Actions workflow that automatically builds exe
 > chmod +x AltarSender-Linux   # or AltarSender-macOS
 > ```
 
-### Creating a Release
+### Releases
 
-To publish a versioned release with executables attached:
-
-1. Go to the [Releases page](../../releases) and click **Draft a new release**
-2. Create a new tag (e.g., `v1.0.0`) and give the release a title
-3. Add release notes describing changes
-4. Click **Publish release**
-
-The GitHub Action will automatically:
-- Build executables for all three platforms
-- Attach all executables to the release
-
-Users can then download the executable for their platform directly from the release page.
+Releases for individual components may be consolidated at the monorepo level. Prefer building from source using the instructions above.
 
 ### Manual Workflow Trigger
 
@@ -398,5 +407,5 @@ You can also manually trigger a build:
 
 ## Related
 
-- [AltarDocker](https://github.com/DreamRepo/AltarDocker) — Deploy MongoDB, MinIO, Omniboard, and AltarExtractor
-- [AltarExtractor](https://github.com/DreamRepo/AltarExtractor) — Browse and filter Sacred experiments in a web UI
+- [AltarDocker docs](https://dreamrepo.github.io/Altar/docker) — Deploy MongoDB, MinIO, Omniboard, and AltarExtractor
+- [AltarExtractor docs](https://dreamrepo.github.io/Altar/extractor) — Browse and filter Sacred experiments in a web UI

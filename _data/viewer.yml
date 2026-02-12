@@ -11,10 +11,10 @@ hero:
     link: "#quick-start"
   secondary_cta:
     text: "Download Release"
-    link: "https://github.com/DreamRepo/AltarViewer/releases"
+    link: "https://github.com/DreamRepo/Altar/releases"
   tertiary_cta:
     text: "View source"
-    link: "https://github.com/DreamRepo/AltarViewer"
+    link: "https://github.com/DreamRepo/Altar"
 
 features:
   - icon: "fa-solid fa-chart-line"
@@ -45,18 +45,17 @@ requirements:
 
 quick_start:
   - title: "Install option 1 — Executable"
-    content: "Download the latest platform-specific launcher from <a href=\"https://github.com/DreamRepo/AltarViewer/releases\">GitHub Releases</a> and run it."
+    content: "Download the latest platform-specific launcher from <a href=\"https://github.com/DreamRepo/Altar/releases\">Altar Releases</a> and run it."
 
-  - title: "Install option 2 — Python app"
+  - title: "Run from source — Python app"
     code: |
-      git clone https://github.com/DreamRepo/AltarViewer.git
       cd AltarViewer
       python -m venv venv
       venv\Scripts\activate      # Windows
       # source venv/bin/activate  # macOS/Linux
       pip install -r requirements.txt
       python -m src.main
-    content: "Clone the repository and run the Python application in a virtual environment."
+    content: "From the monorepo, open the AltarViewer folder and run the Python application in a virtual environment."
 
 
   - title: "Start Docker"

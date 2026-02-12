@@ -158,5 +158,5 @@ docker compose down
 - [BACKUP.md](./BACKUP.md) — Backup and restore guide for MongoDB and MinIO
 - [MANAGE_USERS.md](./MANAGE_USERS.md) — Create and manage MongoDB and MinIO users
 - [AltarExtractor](../AltarExtractor) — Browse and filter Sacred experiments (included in this stack)
-- [AltarSender](https://github.com/DreamRepo/AltarSender) — GUI to send experiments to Sacred and MinIO
+- [AltarSender docs](https://dreamrepo.github.io/Altar/sender) — GUI to send experiments to Sacred and MinIO
 - [Omniboard](https://github.com/vivekratnavel/omniboard) — Web dashboard for Sacred experiments (included in this stack)

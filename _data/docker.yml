@@ -14,7 +14,7 @@ hero:
     link: "#full-documentation"
   tertiary_cta:
     text: "Source"
-    link: "https://github.com/DreamRepo/AltarDocker"
+    link: "https://github.com/DreamRepo/Altar"
 
 features:
   - icon: "fa-solid fa-database"

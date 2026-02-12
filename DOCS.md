@@ -2,7 +2,7 @@
 
 This repository uses **Jekyll** for GitHub Pages, making it easy to edit and maintain documentation.
 
-## 📁 File Structure
+## File Structure
 
 ```
 Altar/
@@ -25,7 +25,7 @@ Altar/
 └── extractor.html        # AltarExtractor page (just front matter)
 ```
 
-## ✏️ How to Edit Content
+## How to Edit Content
 
 ### Editing Page Content
 
@@ -132,7 +132,7 @@ Only edit layout files in `_layouts/` if you need to change the structure:
 - [`_layouts/home.html`](_layouts/home.html) - Home page structure
 - [`_layouts/app.html`](_layouts/app.html) - App pages structure
 
-## 🚀 Testing Locally
+## Testing Locally
 
 ### Prerequisites
 ```bash
@@ -167,7 +167,7 @@ bundle exec jekyll serve
 docker run --rm -v ${PWD}:/srv/jekyll -p 4000:4000 jekyll/jekyll:4.2.2 jekyll serve --watch --force_polling
 ```
 
-## 📝 Common Editing Tasks
+## Common Editing Tasks
 
 ### Adding a New Feature
 
@@ -208,7 +208,7 @@ Use [Font Awesome 6](https://fontawesome.com/icons) icons:
 icon: "fa-solid fa-icon-name"
 ```
 
-## 🌐 GitHub Pages Deployment
+## GitHub Pages Deployment
 
 GitHub Pages automatically builds and deploys when you push to the `main` branch.
 
@@ -216,38 +216,19 @@ GitHub Pages automatically builds and deploys when you push to the `main` branch
 - **Build time**: Usually 1-3 minutes after push
 - **View build status**: Repository → Actions tab
 
-### Submodules and Embedded READMEs
+### Component READMEs (Monorepo)
 
-Some app pages (e.g., AltarSender, AltarExtractor, AltarViewer) embed the README from their submodules using a Jekyll include. This keeps the docs in sync with each tool’s own repository.
+App pages (AltarSender, AltarExtractor, AltarViewer, AltarDocker) embed their local README files from the component directories in this monorepo using a Jekyll include.
 
 - The page front matter sets:
-  - `readme_path: "AltarSender/README.md"` (or the appropriate submodule path)
-  - The layout includes `submodule_readme.html`, which renders that file in-place
-- Submodules are excluded from direct publishing, but `include_relative` reads their README contents for rendering
+  - `readme_path: "AltarSender/README.md"` (or the appropriate component path)
+  - The layout includes `submodule_readme.html`, which renders that file in-place via `include_relative`
+- Component directories are excluded from direct publishing, but their README content is still rendered on the site.
 
-To work with submodules:
+No submodules are used anymore. Clone the repository normally:
 
-1. Clone with submodules:
-  ```bash
-  git clone https://github.com/DreamRepo/Altar.git --recurse-submodules
-  ```
-2. If already cloned, initialize and update:
-  ```bash
-  git submodule update --init --recursive
-  ```
-3. To pull latest submodule content (e.g., to refresh embedded READMEs):
-  ```bash
-  git submodule update --remote --recursive
-  git commit -am "chore: update submodules"
-  git push
-  ```
-
-CI note (GitHub Actions): ensure the checkout step fetches submodules so the README includes render correctly:
-
-```yaml
-- uses: actions/checkout@v4
-  with:
-   submodules: true
+```bash
+git clone https://github.com/DreamRepo/Altar.git
 ```
 
 ### Deployment Configuration
@@ -259,7 +240,7 @@ url: "https://dreamrepo.github.io"  # Your GitHub Pages domain
 baseurl: "/Altar"                    # Repository name
 ```
 
-## 🎨 Icons Reference
+## Icons Reference
 
 This site uses [Font Awesome 6](https://fontawesome.com/search). Popular icons:
 
@@ -274,7 +255,7 @@ fa-solid fa-file-csv      # CSV
 fa-solid fa-magnifying-glass-chart  # Search/Analysis
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Site not updating after push?
 - Check GitHub Actions for build errors
@@ -291,7 +272,7 @@ fa-solid fa-magnifying-glass-chart  # Search/Analysis
 - Check front matter in HTML files
 - Ensure YAML structure matches the layout
 
-## 📚 Resources
+## Resources
 
 - [Jekyll Documentation](https://jekyllrb.com/docs/)
 - [GitHub Pages Guide](https://docs.github.com/en/pages)
@@ -299,7 +280,7 @@ fa-solid fa-magnifying-glass-chart  # Search/Analysis
 - [Font Awesome Icons](https://fontawesome.com/icons)
 - [Markdown Guide](https://www.markdownguide.org/)
 
-## 💡 Tips
+## Tips
 
 1. **Always test locally** before pushing
 2. **Use HTML in YAML** for formatting: `<strong>`, `<code>`, `<br>`
@@ -309,6 +290,6 @@ fa-solid fa-magnifying-glass-chart  # Search/Analysis
 
 ---
 
-**Happy editing! 🎉**
+**Happy editing!**
 
 For questions or issues, see the [main README](README.md) or open an issue on GitHub.

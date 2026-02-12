@@ -76,9 +76,9 @@ By default, MongoDB runs without authentication. To add authentication:
 
 ## Related
 
-- [AltarExtractor](https://github.com/DreamRepo/AltarExtractor) — Browse and filter Sacred experiments (standalone deployment)
-- [AltarSender](https://github.com/DreamRepo/AltarSender) — GUI to send experiments to Sacred and MinIO
-- [AltarViewer](https://github.com/DreamRepo/AltarViewer) — Launch Omniboard configured for your database
+- [AltarExtractor docs](https://dreamrepo.github.io/Altar/extractor) — Browse and filter Sacred experiments
+- [AltarSender docs](https://dreamrepo.github.io/Altar/sender) — GUI to send experiments to Sacred and MinIO
+- [AltarViewer docs](https://dreamrepo.github.io/Altar/viewer) — Launch Omniboard configured for your database
 
 ## License
 

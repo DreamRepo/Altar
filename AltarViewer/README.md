@@ -2,15 +2,13 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-GPL%20v3-blue.svg)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/DreamRepo/AltarViewer?include_prereleases&sort=semver)](https://github.com/DreamRepo/AltarViewer/releases)
-
-[➡️ Download the latest release](https://github.com/DreamRepo/AltarViewer/releases) for Windows, macOS, or Linux.
+> Note: AltarViewer is part of the Altar monorepo. You can either download a prebuilt executable from the monorepo releases or build and run from source.
 
 A graphical user interface application for launching and managing [Omniboard](https://vivekratnavel.github.io/omniboard/) instances to visualize and track MongoDB-backed experiments from the DREAM/Altar ecosystem.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/DreamRepo/AltarViewer/refs/heads/main/assets/image_ctk.png" width="26%" />
-  <img src="https://raw.githubusercontent.com/DreamRepo/AltarViewer/refs/heads/main/assets/image_omniboard.png" width="70%" />
+   <img src="https://raw.githubusercontent.com/DreamRepo/Altar/refs/heads/main/AltarViewer/assets/image_ctk.png" width="26%" />
+   <img src="https://raw.githubusercontent.com/DreamRepo/Altar/refs/heads/main/AltarViewer/assets/image_omniboard.png" width="70%" />
 </div>
 
 ## Table of Contents
@@ -18,7 +16,6 @@ A graphical user interface application for launching and managing [Omniboard](ht
 - [Features](#features)
 - [Installation](#installation)
    - [Prerequisites](#prerequisites)
-   - [From Binary Release](#from-binary-release)
    - [From Source](#from-source)
 - [Usage](#usage)
   - [Quick Start](#quick-start)
@@ -50,41 +47,26 @@ You can use any of these options:
 
 ### From Binary Release
 
-Prebuilt executables for Windows, macOS, and Linux are attached to each GitHub Release (built by our GitHub Actions workflow).
+Prebuilt executables for Windows, macOS, and Linux are attached to the monorepo's Releases.
 
 1) Download
-- Go to the repository's [Releases](https://github.com/DreamRepo/AltarViewer/releases) page
-- Under the latest release, download the asset for your OS/architecture. The filename typically contains the OS name, for example:
-   - Windows: contains `windows` or `win` and ends with `.exe`
-   - macOS: contains `macos` or `darwin` (may be a `.zip` that contains the app/binary)
-   - Linux: contains `linux` (often an ELF binary or a tarball)
+- Go to the monorepo [Releases](https://github.com/DreamRepo/Altar/releases) page
+- Under the latest release, download the Viewer asset for your OS/architecture
 
 2) Run
 - Windows (PowerShell):
    ```powershell
-   # If you downloaded a zip, extract it first
    .\AltarViewer.exe
    ```
-   First run: If you see Windows SmartScreen, click “More info” → “Run anyway”. If the file is blocked, right‑click → Properties → check “Unblock”.
 
-- macOS (Terminal):
+- macOS/Linux (Terminal):
    ```bash
-   # If you downloaded a zip, extract it first
-   chmod +x ./AltarViewer-Linux   # may already be executable
-   ./AltarViewer-Linux
-   ```
-   First run: If Gatekeeper blocks the app, open it via System Settings → Privacy & Security → “Open Anyway”, or right‑click the app → Open.
-
-- Linux (Terminal):
-   ```bash
-   # If you downloaded a tar/zip, extract it first
    chmod +x ./AltarViewer
    ./AltarViewer
    ```
-   Notes: You may need a recent glibc (on older distros). If you see a “permission denied” on a mounted filesystem, copy the binary into your home directory and try again.
 
 3) Optional CLI usage
-- You can also run the executable from a terminal to capture logs. The GUI guides you through connecting to MongoDB and launching Omniboard.
+- You can also run the executable from a terminal to capture logs.
 
 ### From Source
 
@@ -101,16 +83,6 @@ pip install -r requirements.txt
 python -m src.main
 ```
 
-Alternatively, clone this repository directly if you only need the Viewer:
-
-```bash
-git clone https://github.com/DreamRepo/AltarViewer.git
-cd AltarViewer
-python -m venv venv
-source venv/bin/activate    # or venv\Scripts\activate on Windows
-pip install -r requirements.txt
-python -m src.main
-```
 
 
 ## Usage
@@ -401,23 +373,14 @@ Older versions saved preferences at `~/.altarviewer_config.json`, which could be
 
 ### Getting Help
 
-- Check existing [GitHub Issues](https://github.com/DreamRepo/AltarViewer/issues)
+- Check existing [GitHub Issues](https://github.com/DreamRepo/Altar/issues)
 - Review [Omniboard documentation](https://vivekratnavel.github.io/omniboard/)
 - Contact the DREAM/Altar team
 
 
 ## Versioning
 
-We use Semantic Versioning (SemVer) for AltarViewer. The latest version is shown by the Release badge at the top of this README. See the [Releases](https://github.com/DreamRepo/AltarViewer/releases) page for notes and downloadable artifacts.
-
-### Release Process
-
-1. Update version where applicable (e.g., badges or app metadata if needed)
-2. Create and push a tag (use the next SemVer):
-   - `git tag -a vX.Y.Z -m "Release vX.Y.Z"`
-   - `git push origin vX.Y.Z`
-3. GitHub Actions builds platform-specific binaries and uploads them to the Release
-4. Publish the Release when artifacts are validated
+This component is part of the Altar monorepo. Releases are published on the monorepo. You can either download the compiled binaries or build from source.
 
 ## License
 

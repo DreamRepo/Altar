@@ -9,12 +9,11 @@
 
 ## Simple Setup (3 Steps)
 
-### 1. Download the File
+### 1. Locate the Compose File
 
-Download `docker-compose.yml` from the [AltarDocker repository](https://github.com/DreamRepo/AltarDocker) to a folder on your computer.
-Copy the full path of this folder. 
+Use the `docker-compose.yml` in this folder (`AltarDocker/`) of the monorepo. Copy the full path of this folder.
 
-![image](https://github.com/DreamRepo/AltarDocker/compose_path.png)
+![image](https://raw.githubusercontent.com/DreamRepo/Altar/refs/heads/main/AltarDocker/images/compose_path.png)
 
 
 ### 2. Deploy with Docker Desktop
@@ -39,7 +38,7 @@ docker compose --profile minio up -d
 
 > **When to use MinIO?** Only if you need S3-compatible storage for raw data files. For most local setups, you don't need it. See [DEPLOY.md](DEPLOY.md) for more details.
 
-![video](https://github.com/DreamRepo/AltarDocker/install_altardocker.mp4)
+![video](https://raw.githubusercontent.com/DreamRepo/Altar/refs/heads/main/AltarDocker/images/install_altardocker.mp4)
 
 ### 3. Access Your Services
 
@@ -94,5 +93,7 @@ In Docker Desktop:
 
 - Open http://localhost:9004 to visualize experiments with **Omniboard**
 - Open http://localhost:8050 to analyze experiments with **AltarExtractor**
-- Download [AltarSender](https://github.com/DreamRepo/AltarSender/releases) to upload experiments
+- To upload experiments, either:
+	- Download executables from the <a href="https://github.com/DreamRepo/Altar/releases">Altar Releases</a> (AltarSender/AltarViewer), or
+	- Open the [AltarSender guide](https://dreamrepo.github.io/Altar/sender) to run from source
 - See [MANAGE_USERS.md](MANAGE_USERS.md) to create additional MongoDB users

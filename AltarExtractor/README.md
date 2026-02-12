@@ -171,5 +171,5 @@ If your Sacred data uses a different structure than the standard `runs` collecti
 
 ## Related
 
-- [AltarDocker](https://github.com/DreamRepo/AltarDocker) — Deploy MongoDB, MinIO, Omniboard, and AltarExtractor
-- [AltarSender](https://github.com/DreamRepo/AltarSender) — GUI to send experiments to Sacred
+- [AltarDocker docs](https://dreamrepo.github.io/Altar/docker) — Deploy MongoDB, MinIO, Omniboard, and AltarExtractor
+- [AltarSender docs](https://dreamrepo.github.io/Altar/sender) — GUI to send experiments to Sacred

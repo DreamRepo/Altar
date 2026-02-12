@@ -11,10 +11,10 @@ hero:
     link: "#features"
   secondary_cta:
     text: "View source"
-    link: "https://github.com/DreamRepo/AltarExtractor"
+    link: "https://github.com/DreamRepo/Altar"
   tertiary_cta:
-    text: "Download Release"
-    link: "https://github.com/DreamRepo/AltarExtractor/releases"
+    text: "Build from source"
+    link: "#quick-start"
 
 features:
   - icon: "fa-solid fa-plug"
@@ -59,28 +59,16 @@ requirements:
       link_text: "Read Docs"
 
 quick_start:
-  - title: "Option A: From Binary Release (no setup)"
-    code: |
-      # Download the latest release for your OS:
-      # https://github.com/DreamRepo/AltarExtractor/releases
-
-      # Windows
-      # 1) Download and unzip the asset
-      # 2) Double-click AltarExtractor.exe
-
-      # Linux/macOS
-      chmod +x ./AltarExtractor   # may already be executable
-      ./AltarExtractor
-    content: "The app starts a local server at <code>http://localhost:8050</code> and opens your browser."
-  - title: "Option B: From Source (virtual environment)"
+  - title: "Option A: From Source (virtual environment)"
     code: |
       cd AltarExtractor
       python -m venv .venv
       .venv\Scripts\activate  # Windows
+      # source .venv/bin/activate  # Linux/macOS
       pip install -r requirements.txt
       python app.py
     content: "Open <code>http://localhost:8050</code> in your browser."
-  - title: "Option C: Using Docker"
+  - title: "Option B: Using Docker"
     code: |
       cd AltarExtractor
       docker-compose up -d --build

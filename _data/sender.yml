@@ -11,10 +11,10 @@ hero:
     link: "#features"
   secondary_cta:
     text: "View source"
-    link: "https://github.com/DreamRepo/AltarSender"
+    link: "https://github.com/DreamRepo/Altar"
   tertiary_cta:
     text: "Download Release"
-    link: "https://github.com/DreamRepo/AltarSender/releases"
+    link: "https://github.com/DreamRepo/Altar/releases"
 
 features:
   - icon: "fa-solid fa-folder-tree"
@@ -67,6 +67,15 @@ requirements:
       link_text: "Go to AltarViewer"
 
 quick_start:
+  - title: "Option A: From Binary Release"
+    content: "Download the latest platform-specific executable from <a href=\"https://github.com/DreamRepo/Altar/releases\">Altar Releases</a> and run it."
+    code: |
+      # Windows
+      .\AltarSender.exe
+
+      # macOS/Linux
+      chmod +x ./AltarSender
+      ./AltarSender
   - title: "Install dependencies"
     code: |
       cd AltarSender
