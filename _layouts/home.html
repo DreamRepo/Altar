@@ -197,21 +197,7 @@ layout: default
     </div>
   </section>
 
-  <!-- REQUIREMENT TO RUN ALTAR -->
-  <section class="section">
-    <h2 class="section-title">{{ data.requirement.title }}</h2>
-    <article class="card">
-      <div class="card-icon" aria-hidden="true"><i class="{{ data.requirement.icon }}"></i></div>
-      <h3>{{ data.requirement.card_title }}</h3>
-      <p>{{ data.requirement.description }}</p>
-      {% if data.requirement.docker_explanation %}
-      <p class="docker-explanation">{{ data.requirement.docker_explanation }}</p>
-      {% endif %}
-      <div class="card-actions">
-        <a class="btn btn-link" href="{{ data.requirement.link | relative_url }}">{{ data.requirement.linkText }}</a>
-      </div>
-    </article>
-  </section>
+
 
   <!-- QUICK START -->
   <section id="quickstart" class="section alt">
@@ -229,11 +215,11 @@ layout: default
     </div>
   </section>
 
-  <!-- QUICK START NON-CODER -->
-  <section id="quickstart-noncoder" class="section">
-    <h2 class="section-title">{{ data.quick_start_noncoder.title }}</h2>
+  <!-- QUICK START DEVELOPERS -->
+  <section id="quickstart-dev" class="section">
+    <h2 class="section-title">{{ data.quick_start_dev.title }}</h2>
     <div class="steps">
-      {% for step in data.quick_start_noncoder.steps %}
+      {% for step in data.quick_start_dev.steps %}
       <div class="step">
         <div class="step-num">{{ forloop.index }}</div>
         <div class="step-body">

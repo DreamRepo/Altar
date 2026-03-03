@@ -336,10 +336,10 @@ hero:
     link: "#projects"
   secondary_cta:
     text: "Quick start"
-    link: "#quickstart-noncoder"
+    link: "#quickstart"
   tertiary_cta:
     text: "Quick start (developers)"
-    link: "#quickstart"
+    link: "#quickstartdev"
 
 who_is_it_for:
   title: "Why FAIR?"
@@ -391,7 +391,7 @@ tools:
       linkText: "Learn more →"
 
 
-quick_start_noncoder:
+quick_start:
   title: "Quick start"
   steps:
     - title: "Install Docker Desktop"
@@ -407,7 +407,7 @@ quick_start_noncoder:
 
 
 
-quick_start:
+quick_start_dev:
   title: "Quick start for developers"
   steps:
     - title: "Install Docker Desktop"
