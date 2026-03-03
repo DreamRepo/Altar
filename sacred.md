@@ -1,12 +1,12 @@
 # Sacred — quick concepts
 
 
-#### Illustration: from original script to Sacred script:
+#### Illustration: from original Python script to Sacred integration:
 
 ![Sacred script overview](https://raw.githubusercontent.com/Alienor134/Altar/refs/heads/dev/assets/quick_description/sacred_script.png)
 
-- Official docs: https://sacred.readthedocs.io/
-- Original paper (PDF): https://ml.informatik.uni-freiburg.de/wp-content/uploads/papers/17-SciPy-Sacred.pdf
+- [Official docs](https://sacred.readthedocs.io/)
+- [Original paper (PDF)](https://ml.informatik.uni-freiburg.de/wp-content/uploads/papers/17-SciPy-Sacred.pdf)
 
 A tiny cheat‑sheet for the core pieces you’ll see reflected in Altar:
 

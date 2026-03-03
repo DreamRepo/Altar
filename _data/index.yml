@@ -164,8 +164,8 @@ resource_finder:
       icon: "fa-solid fa-file-pdf"
       short_description: "Academic paper on Altar system."
       description: "The Altar paper provides a comprehensive overview of the system architecture, design decisions, and use cases. It explains how all the components work together, compares Altar to other experiment management tools, and presents real-world examples from research labs. Great for understanding the big picture and citing Altar in your publications."
-      link: "#paper"
-      link_text: "Read Paper"
+        link: "https://arxiv.org/abs/2602.18588"
+        link_text: "Read Paper on arXiv"
     
     incense:
       title: "Incense Library"
@@ -335,11 +335,11 @@ hero:
     text: "Explore tools"
     link: "#projects"
   secondary_cta:
-    text: "Quick start (coders)"
-    link: "#quickstart"
-  tertiary_cta:
-    text: "Quick start (non-coders)"
+    text: "Quick start"
     link: "#quickstart-noncoder"
+  tertiary_cta:
+    text: "Quick start (developers)"
+    link: "#quickstart"
 
 who_is_it_for:
   title: "Why FAIR?"
@@ -392,7 +392,7 @@ tools:
 
 
 quick_start_noncoder:
-  title: "Quick start for non-coders"
+  title: "Quick start"
   steps:
     - title: "Install Docker Desktop"
       description: "Download and install <a href=\"https://docs.docker.com/get-docker/\" target=\"_blank\">Docker Desktop</a> (free for personal use). Open it and wait until it shows 'Engine running'."
