@@ -1,6 +1,6 @@
 # Altar — Developer Guide
 
-Experiment data management tools based on Sacred infrastructure.
+Experiment data management tools based on [Sacred](https://sacred.readthedocs.io/en/stable/) infrastructure. 
 
 **🌐 User Documentation**: [https://dreamrepo.github.io/Altar/](https://dreamrepo.github.io/Altar/)
 
@@ -32,11 +32,6 @@ Access: MongoDB (27017), MinIO Console (9001), Omniboard (9015)
 ### Run Components
 
 ```bash
-# AltarExtractor
-cd AltarExtractor
-pip install -r requirements.txt
-python app.py
-
 # AltarSender
 cd AltarSender
 pip install -r requirements.txt
@@ -46,7 +41,14 @@ python app.py
 cd AltarViewer
 pip install -r requirements.txt
 python src/main.py
+
+# AltarExtractor
+cd AltarExtractor
+pip install -r requirements.txt
+python app.py
+
 ```
+For AltarExtractor: connect to localhost:8050.
 
 ## Documentation Website
 

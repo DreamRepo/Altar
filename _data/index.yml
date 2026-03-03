@@ -107,7 +107,7 @@ resource_finder:
       title: "AltarViewer Guide"
       icon: "fa-solid fa-tv"
       short_description: "Desktop app to visualize experiments."
-      description: "AltarViewer is a desktop application that connects to your MongoDB database and launches Omniboard - a web-based dashboard for visualizing experiments. With one click, you can see all your experiments in a table, compare configurations, view metrics over time, and explore results. It's the easiest way to get started with visualizing your experiment data."
+      description: "AltarViewer is a desktop application that connects to your database and launches the visualisation. With one click, you can see all your experiments in a table, compare configurations, view metrics over time, and explore results. It's the easiest way to get started with visualizing your experiment data."
       link: "viewer"
       link_text: "Go to AltarViewer"
     
