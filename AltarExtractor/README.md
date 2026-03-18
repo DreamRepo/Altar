@@ -2,6 +2,11 @@
 
 A Dash web app to browse Sacred experiments stored in MongoDB. Features a clean Bootstrap UI, saved credentials, config filtering, metrics visualization, and CSV export.
 
+
+<div align="center">
+   <img src="https://raw.githubusercontent.com/DreamRepo/Altar/refs/heads/main/AltarExtractor/assets/snapshot_app.png" width="70%" />
+</div>
+
 ## Features
 
 - Connect to any MongoDB instance with Sacred data
