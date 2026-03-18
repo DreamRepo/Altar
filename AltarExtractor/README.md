@@ -4,7 +4,7 @@ A Dash web app to browse Sacred experiments stored in MongoDB. Features a clean 
 
 
 <div align="center">
-   <img src="https://raw.githubusercontent.com/DreamRepo/Altar/refs/heads/main/AltarExtractor/assets/snapshot_app.png" width="70%" />
+   <img src="https://raw.githubusercontent.com/DreamRepo/Altar/refs/heads/main/AltarExtractor/assets/snapshot_app.png" width="100%" />
 </div>
 
 ## Features
